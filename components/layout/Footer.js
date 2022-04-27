@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <>
-      <Flex direction={{ sm: "column", md: "row" }} py={10} bg="secondary" color="white" justifyContent="space-between" alignItems="center" px={10}>
+      <Flex direction={{ sm: "column", md: "row" }} py={10} bg="text" color="white" justifyContent="space-between" alignItems="center" px={10}>
         <Flex direction="column">
           <Flex alignItems="center" mb={3}>
             <PhoneIcon mr={3} />
@@ -51,7 +51,7 @@ const Footer = () => {
         </Flex>
 
         <Flex>
-          <Button borderRadius="full" onClick={onOpen} variant="outline" _hover={{ bg: "primary" }}>
+          <Button borderRadius="full" bg="primary" onClick={onOpen} variant="filled" _hover={{ bg: "secondary" }}>
             Admin
           </Button>
         </Flex>
