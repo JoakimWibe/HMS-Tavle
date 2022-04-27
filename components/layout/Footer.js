@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <>
-      <Flex direction={{ sm: "column", md: "row" }} py={10} bg="gray.700" color="white" justifyContent="space-between" alignItems="center" px={10}>
+      <Flex direction={{ sm: "column", md: "row" }} py={10} bg="secondary" color="white" justifyContent="space-between" alignItems="center" px={10}>
         <Flex direction="column">
           <Flex alignItems="center" mb={3}>
             <PhoneIcon mr={3} />
@@ -28,22 +28,22 @@ const Footer = () => {
           </Box>
           <Flex direction="column">
             <NextLink href="/" passHref>
-              <Link mb={2} color={router.pathname === "/" ? "blue.500" : ""} mr={5}>
+              <Link mb={2} textDecoration={router.pathname === "/" ? "underline" : ""} mr={5}>
                 Hjem
               </Link>
             </NextLink>
             <NextLink href="/bestselgere" passHref>
-              <Link mb={2} color={router.pathname === "/bestselgere" ? "blue.500" : ""} mr={5}>
+              <Link mb={2} textDecoration={router.pathname === "/bestselgere" ? "underline" : ""} mr={5}>
                 Våre bestselgere
               </Link>
             </NextLink>
             <NextLink href="/bygg-hms" passHref>
-              <Link mb={2} color={router.pathname === "/bygg-hms" ? "blue.500" : ""} mr={5}>
+              <Link mb={2} textDecoration={router.pathname === "/bygg-hms" ? "underline" : ""} mr={5}>
                 Bygg din egen HMS-tavle
               </Link>
             </NextLink>
             <NextLink href="/faq" passHref>
-              <Link mb={2} color={router.pathname === "/faq" ? "blue.500" : ""} mr={5}>
+              <Link mb={2} textDecoration={router.pathname === "/faq" ? "underline" : ""} mr={5}>
                 Ofte stilte spørsmål
               </Link>
             </NextLink>
@@ -51,8 +51,8 @@ const Footer = () => {
         </Flex>
 
         <Flex>
-          <Button onClick={onOpen} colorScheme="blue">
-            Logg inn
+          <Button borderRadius="full" onClick={onOpen} variant="outline" _hover={{ bg: "primary" }}>
+            Admin
           </Button>
         </Flex>
       </Flex>

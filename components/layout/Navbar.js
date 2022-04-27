@@ -18,28 +18,28 @@ const Navbar = () => {
   };
 
   return (
-    <Box position="fixed" w="100%" bg="white">
+    <Box position="fixed" w="100%" bg="white" zIndex={1}>
       <Flex h={20} justifyContent="space-between" alignItems="center" p={5}>
         <NextLink href="/" passHref>
           <Image cursor="pointer" src={Logo.src} alt="HMS-Tavle logo" h={50} />
         </NextLink>
         <Box display={{ sm: "none", md: "flex" }} alignItems="center">
           <NextLink href="/bestselgere" passHref>
-            <Link color={router.pathname === "/bestselgere" ? "blue.500" : ""} mr={5}>
+            <Link textDecoration={router.pathname === "/bestselgere" ? "underline" : ""} mr={5}>
               Våre bestselgere
             </Link>
           </NextLink>
           <NextLink href="/bygg-hms" passHref>
-            <Link color={router.pathname === "/bygg-hms" ? "blue.500" : ""} mr={5}>
+            <Link textDecoration={router.pathname === "/bygg-hms" ? "underline" : ""} mr={5}>
               Bygg din egen HMS-tavle
             </Link>
           </NextLink>
           <NextLink href="/faq" passHref>
-            <Link color={router.pathname === "/faq" ? "blue.500" : ""} mr={5}>
+            <Link textDecoration={router.pathname === "/faq" ? "underline" : ""} mr={5}>
               Ofte stilte spørsmål
             </Link>
           </NextLink>
-          <Button onClick={onOpen} colorScheme="blue">
+          <Button borderRadius="full" onClick={onOpen} bg="white" color="primary" border="2px" borderColor="primary">
             Kontakt Oss
           </Button>
         </Box>
@@ -47,7 +47,8 @@ const Navbar = () => {
           onClick={toggleDropdown}
           display={{ sm: "flex", md: "none" }}
           aria-label="menu"
-          icon={dropdown ? <CloseIcon /> : <HamburgerIcon />}
+          icon={dropdown ? <CloseIcon color="secondary" fontSize={24} /> : <HamburgerIcon color="secondary" fontSize={24} />}
+          variant="ghost"
         />
       </Flex>
 
