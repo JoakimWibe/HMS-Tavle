@@ -1,6 +1,7 @@
 import { Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import axios from "axios";
 import Banner from "../components/Banner";
+import ErrorMessage from "../components/common/ErrorMessage";
 import Head from "../components/layout/Head";
 import Layout from "../components/layout/Layout";
 import { FAQ_URL } from "../constants/api";
@@ -24,22 +25,26 @@ const Faq = (props) => {
 
           <Divider mb={10} borderColor="secondary" />
 
-          <Flex direction="column">
-            {props.faqs.data.map((faq) => {
-              const question = faq.attributes.question;
-              const answer = faq.attributes.answer;
-              const id = faq.id;
+          {props.errorMessage ? (
+            <ErrorMessage content={props.errorMessage} />
+          ) : (
+            <Flex direction="column">
+              {props.faqs.map((faq) => {
+                const question = faq.attributes.question;
+                const answer = faq.attributes.answer;
+                const id = faq.id;
 
-              return (
-                <Flex key={id} direction="column" mb={10}>
-                  <Heading as="h3" fontSize="xl">
-                    {question}
-                  </Heading>
-                  <Text>{answer}</Text>
-                </Flex>
-              );
-            })}
-          </Flex>
+                return (
+                  <Flex key={id} direction="column" mb={10}>
+                    <Heading as="h3" fontSize="xl">
+                      {question}
+                    </Heading>
+                    <Text>{answer}</Text>
+                  </Flex>
+                );
+              })}
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </Layout>
@@ -50,17 +55,19 @@ export default Faq;
 
 export async function getStaticProps() {
   let faqs = [];
+  let errorMessage = null;
 
   try {
     const response = await axios.get(FAQ_URL);
-    faqs = response.data;
+    faqs = response.data.data;
   } catch (error) {
-    console.log(error);
+    errorMessage = "An error related to the API has occured.";
   }
 
   return {
     props: {
-      faqs,
+      faqs: faqs,
+      errorMessage: errorMessage,
     },
   };
 }

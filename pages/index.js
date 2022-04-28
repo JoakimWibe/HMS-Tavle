@@ -1,19 +1,21 @@
-import { Text, Button, Flex, Heading, Box } from "@chakra-ui/react";
+import { Text, Button, Flex, Heading, AlertIcon, AlertTitle, Alert } from "@chakra-ui/react";
 import Banner from "../components/Banner";
 import Head from "../components/layout/Head";
 import Layout from "../components/layout/Layout";
 import NextLink from "next/link";
 import { InfoIcon } from "@chakra-ui/icons";
-import Examples from "../components/products/Examples";
+import { EXAMPLES_URL } from "../constants/api";
+import axios from "axios";
+import ProductExample from "../components/products/ProductExamples";
 
-const Home = () => {
+const Home = (props) => {
   return (
     <Layout>
       <Head description="Hjemmeside for HMS-tavle" />
       <Flex direction="column">
         <Banner />
 
-        <Flex h={500} direction="column" justifyContent="center" alignItems="center">
+        <Flex h={600} mb={10} bg="gray.300" direction="column" justifyContent="center" alignItems="center">
           <Heading textAlign="center" as="h1" color="text" mb={10}>
             Norges ledende leverandør av HMS-tavler
           </Heading>
@@ -59,7 +61,14 @@ const Home = () => {
             </Flex>
           </NextLink>
 
-          <Examples />
+          {props.errorMessage ? (
+            <Alert status="error" mb={10}>
+              <AlertIcon />
+              <AlertTitle>{props.errorMessage}</AlertTitle>
+            </Alert>
+          ) : (
+            <ProductExample productExamples={props.examples} />
+          )}
         </Flex>
       </Flex>
     </Layout>
@@ -67,3 +76,22 @@ const Home = () => {
 };
 
 export default Home;
+
+export async function getStaticProps() {
+  let examples = [];
+  let errorMessage = null;
+
+  try {
+    const response = await axios.get(EXAMPLES_URL);
+    examples = response.data.data;
+  } catch (error) {
+    errorMessage = "An error related to the API has occured.";
+  }
+
+  return {
+    props: {
+      examples: examples,
+      errorMessage: errorMessage,
+    },
+  };
+}
