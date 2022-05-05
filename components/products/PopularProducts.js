@@ -1,5 +1,4 @@
 import { Box, Image, Button, Divider, Flex, Heading } from "@chakra-ui/react";
-
 import NextLink from "next/link";
 
 const PopularProducts = ({ popularProducts }) => {
@@ -16,7 +15,7 @@ const PopularProducts = ({ popularProducts }) => {
           <Box key={id}>
             <Flex direction={{ sm: "column", md: "row" }} textAlign={{ sm: "center", md: "left" }}>
               <Image src={imageUrl} alt={imageAltText} height={{ sm: "auto", md: 52 }} border={"1px"} p={5} mb={{ sm: 5, md: 0 }} rounded={"sm"} />
-              <Flex ml={10} direction={"column"} justifyContent={"space-between"}>
+              <Flex ml={{ sm: 0, md: 10 }} direction={"column"} justifyContent={"space-between"}>
                 <Heading fontSize={"2xl"} as="h3">
                   {name}
                 </Heading>
