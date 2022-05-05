@@ -2,7 +2,6 @@ import { Box, Image, Button, Divider, Flex, Heading } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 const PopularProducts = ({ popularProducts }) => {
-  console.log(popularProducts);
   return (
     <Flex direction={"column"}>
       {popularProducts.map((product) => {

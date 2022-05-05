@@ -43,7 +43,7 @@ export async function getStaticProps() {
     const response = await axios.get(PRODUCTS_URL);
     products = response.data.data;
   } catch (error) {
-    errorMessage = "An error related to the API has occured.";
+    errorMessage = "En feil har oppstått.";
   }
 
   return {

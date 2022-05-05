@@ -1,3 +1,11 @@
-export const FAQ_URL = "http://localhost:1337/api/faqs/";
-export const EXAMPLES_URL = "http://localhost:1337/api/eksempler/";
-export const PRODUCTS_URL = "http://localhost:1337/api/bestselgere/";
+const BASE_URL = "http://localhost:1337";
+
+export const FAQ_URL = BASE_URL + "/api/faqs/";
+
+export const EXAMPLES_URL = BASE_URL + "/api/eksempler/";
+
+export const PRODUCTS_URL = BASE_URL + "/api/bestselgere/";
+
+export const CONTACT_URL = BASE_URL + "/api/meldinger";
+
+export const ORDER_URL = BASE_URL + "/api/bestillinger";

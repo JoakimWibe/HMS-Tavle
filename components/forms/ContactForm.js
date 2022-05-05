@@ -3,6 +3,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormError from "../common/FormError";
+import { useState } from "react";
+import axios from "axios";
+import { CONTACT_URL } from "../../constants/api";
+import SuccessMessage from "../common/SuccessMessage";
+import ErrorMessage from "../common/ErrorMessage";
 
 const schema = yup.object().shape({
   name: yup.string().required("Navn er obligatorisk"),
@@ -12,6 +17,8 @@ const schema = yup.object().shape({
 });
 
 const ContactForm = () => {
+  const [success, setSuccess] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -21,7 +28,19 @@ const ContactForm = () => {
   });
 
   function onSubmit(data) {
-    console.log(data);
+    try {
+      const response = axios.post(CONTACT_URL, {
+        data: {
+          email: data.email,
+          message: data.message,
+          name: data.name,
+          phone: data.phone,
+        },
+      });
+      setSuccess(true);
+    } catch (error) {
+      setSuccess(false);
+    }
   }
 
   return (
@@ -30,6 +49,8 @@ const ContactForm = () => {
       <ModalCloseButton />
       <ModalBody>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {success && <SuccessMessage>Meldingen din er sendt.</SuccessMessage>}
+          {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
           <Box mb={3}>
             <Input mb={2} placeholder="Navn" type="text" {...register("name")} />
             {errors.name && <FormError>{errors.name.message}</FormError>}
