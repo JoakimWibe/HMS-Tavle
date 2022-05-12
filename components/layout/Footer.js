@@ -3,10 +3,30 @@ import { Box, Button, Flex, Link, Modal, ModalOverlay, Text, useDisclosure } fro
 import LoginForm from "../forms/LoginForm";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
 
 const Footer = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [auth, setAuth] = useContext(AuthContext);
+
+  useEffect(() => {
+    if (auth) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const logOut = () => {
+    setAuth(null);
+    window.localStorage.clear();
+    setIsLoggedIn(false);
+    router.push("/");
+  };
 
   return (
     <>
@@ -51,9 +71,15 @@ const Footer = () => {
         </Flex>
 
         <Flex>
-          <Button borderRadius="full" bg="primary" onClick={onOpen} variant="filled" _hover={{ bg: "secondary" }}>
-            Admin
-          </Button>
+          {isLoggedIn ? (
+            <Button onClick={logOut} borderRadius="full" bg="primary" variant="filled" _hover={{ bg: "secondary" }}>
+              Logg ut
+            </Button>
+          ) : (
+            <Button borderRadius="full" bg="primary" onClick={onOpen} variant="filled" _hover={{ bg: "secondary" }}>
+              Admin
+            </Button>
+          )}
         </Flex>
       </Flex>
 

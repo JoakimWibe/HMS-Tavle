@@ -27,9 +27,9 @@ const ContactForm = () => {
     resolver: yupResolver(schema),
   });
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
     try {
-      const response = axios.post(CONTACT_URL, {
+      const response = await axios.post(CONTACT_URL, {
         data: {
           email: data.email,
           message: data.message,

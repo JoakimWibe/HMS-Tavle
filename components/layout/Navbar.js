@@ -2,7 +2,10 @@ import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, IconButton, Image, Link, Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useContext } from "react";
 import { useState } from "react";
+import AuthContext from "../../context/AuthContext";
 import Logo from "../../public/assets/logo.png";
 import ContactForm from "../forms/ContactForm";
 import { Dropdown } from "./Dropdown";
@@ -11,11 +14,21 @@ const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [auth, setAuth] = useContext(AuthContext);
+
   const [dropdown, setDropdown] = useState(false);
 
   const toggleDropdown = () => {
     setDropdown(!dropdown);
   };
+
+  useEffect(() => {
+    if (auth) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <Box position="fixed" w="100%" bg="white" zIndex={1}>
@@ -39,6 +52,13 @@ const Navbar = () => {
               Ofte stilte spørsmål
             </Link>
           </NextLink>
+          {isLoggedIn && (
+            <NextLink href="/admin" passHref>
+              <Link textDecoration={router.pathname === "/admin" ? "underline" : ""} mr={5}>
+                Admin
+              </Link>
+            </NextLink>
+          )}
           <Button borderRadius="full" onClick={onOpen} bg="white" color="primary" border="2px" borderColor="primary">
             Kontakt Oss
           </Button>

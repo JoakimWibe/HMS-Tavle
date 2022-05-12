@@ -4,6 +4,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormError from "../common/FormError";
 import { useState } from "react";
+import axios from "axios";
+import { LOGIN_URL } from "../../constants/api";
+import ErrorMessage from "../common/ErrorMessage";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
+import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   email: yup.string().required("Epost er obligatorisk").email("Skriv inn en gylding epost adresse"),
@@ -12,6 +18,11 @@ const schema = yup.object().shape({
 
 const LoginForm = () => {
   const [fieldset, setFieldset] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [loginError, setLoginError] = useState(null);
+  const [auth, setAuth] = useContext(AuthContext);
+
+  const router = useRouter();
 
   const {
     register,
@@ -21,15 +32,32 @@ const LoginForm = () => {
     resolver: yupResolver(schema),
   });
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
     setFieldset(true);
+    setSubmitting(true);
+
+    try {
+      const response = await axios.post(LOGIN_URL, {
+        identifier: data.email,
+        password: data.password,
+      });
+      setAuth(response.data);
+      router.push("/admin");
+    } catch (error) {
+      setLoginError("Feil epost/passord.");
+    } finally {
+      setFieldset(false);
+      setSubmitting(false);
+    }
   }
+
   return (
     <ModalContent w="sm">
       <ModalHeader color="secondary">Logg inn</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {loginError && <ErrorMessage content={loginError} />}
           <fieldset disabled={fieldset}>
             <Box mb={3}>
               <Input mb={2} placeholder="Email" type="email" {...register("email")} />
@@ -47,7 +75,7 @@ const LoginForm = () => {
               w="100%"
               color="white"
               _hover={{ bg: "secondary" }}
-              isLoading={false}
+              isLoading={submitting}
               loadingText="Logger inn"
               type="submit"
             >

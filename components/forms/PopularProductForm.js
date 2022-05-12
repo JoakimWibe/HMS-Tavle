@@ -29,9 +29,9 @@ const PopularProductForm = ({ title }) => {
     resolver: yupResolver(schema),
   });
 
-  function onSubmit(data) {
+  async function onSubmit(data) {
     try {
-      const response = axios.post(ORDER_URL, {
+      const response = await axios.post(ORDER_URL, {
         data: {
           product_title: data.product_title,
           amount: data.amount,
