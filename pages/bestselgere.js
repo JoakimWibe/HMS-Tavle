@@ -1,4 +1,5 @@
-import { Divider, Flex, Heading, Text } from "@chakra-ui/react";
+import { Search2Icon } from "@chakra-ui/icons";
+import { Divider, Flex, Heading, IconButton, Input, InputGroup, InputRightAddon, Text } from "@chakra-ui/react";
 import axios from "axios";
 import Banner from "../components/Banner";
 import ErrorMessage from "../components/common/ErrorMessage";
@@ -23,6 +24,11 @@ const Bestselgere = (props) => {
             Nedenfor finner du en del av våre mest solgte produkter. Alle produkter kan tilpasses etter dine behov, og priser gis på forespørsel
             basert på volum.
           </Text>
+
+          <InputGroup>
+            <Input mb={3} placeholder="Søk etter produkt..." borderRightRadius={"none"} />
+            <IconButton w={20} bg={"primary"} color={"white"} icon={<Search2Icon />} borderLeftRadius={"none"} _hover={{ bg: "secondary" }} />
+          </InputGroup>
 
           <Divider mb={10} borderColor="secondary" />
 
