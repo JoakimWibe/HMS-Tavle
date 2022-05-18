@@ -1,6 +1,8 @@
 import { Search2Icon } from "@chakra-ui/icons";
-import { Divider, Flex, Heading, IconButton, Input, InputGroup, InputRightAddon, Text } from "@chakra-ui/react";
+import { Divider, Flex, Heading, IconButton, Input, InputGroup, Text } from "@chakra-ui/react";
 import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 import Banner from "../components/Banner";
 import ErrorMessage from "../components/common/ErrorMessage";
 import Head from "../components/layout/Head";
@@ -9,6 +11,30 @@ import PopularProducts from "../components/products/PopularProducts";
 import { PRODUCTS_URL } from "../constants/api";
 
 const Bestselgere = (props) => {
+  const [inputValue, setInputValue] = useState("");
+  const [noResults, setNoResults] = useState(false);
+
+  let searchHandler = (e) => {
+    let lowerCase = e.target.value.toLowerCase();
+    setInputValue(lowerCase);
+  };
+
+  const filteredProducts = props.products.filter((product) => {
+    if (inputValue === "") {
+      return product;
+    } else {
+      return product.attributes.name.toLowerCase().includes(inputValue);
+    }
+  });
+
+  useEffect(() => {
+    if (filteredProducts < 1) {
+      setNoResults(true);
+    } else {
+      setNoResults(false);
+    }
+  });
+
   return (
     <Layout>
       <Head title="Våre Bestselgere" description="Oversikt over de mest solgte produktene." />
@@ -26,13 +52,17 @@ const Bestselgere = (props) => {
           </Text>
 
           <InputGroup>
-            <Input mb={3} placeholder="Søk etter produkt..." borderRightRadius={"none"} />
+            <Input mb={3} placeholder="Søk etter produkt..." borderRightRadius={"none"} onChange={searchHandler} />
             <IconButton w={20} bg={"primary"} color={"white"} icon={<Search2Icon />} borderLeftRadius={"none"} _hover={{ bg: "secondary" }} />
           </InputGroup>
 
           <Divider mb={10} borderColor="secondary" />
 
-          {props.errorMessage ? <ErrorMessage content={props.errorMessage} /> : <PopularProducts popularProducts={props.products} />}
+          {props.errorMessage ? (
+            <ErrorMessage content={props.errorMessage} />
+          ) : (
+            <PopularProducts resultsMessage={noResults} popularProducts={filteredProducts} />
+          )}
         </Flex>
       </Flex>
     </Layout>

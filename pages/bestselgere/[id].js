@@ -105,7 +105,7 @@ export async function getStaticProps({ params }) {
     const response = await axios.get(url);
     popularProduct = response.data.data;
   } catch (error) {
-    errorMessage = "An error related to the API has occured";
+    errorMessage = "En feil har oppstått.";
   }
 
   return {
