@@ -19,7 +19,9 @@ const Layout = ({ children }) => {
       <header>
         <Navbar />
       </header>
-      <Box pt={20}>{children}</Box>
+      <main>
+        <Box pt={20}>{children}</Box>
+      </main>
       <footer>
         <Footer />
       </footer>

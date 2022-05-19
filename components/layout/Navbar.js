@@ -59,7 +59,7 @@ const Navbar = () => {
               </Link>
             </NextLink>
           )}
-          <Button borderRadius="full" onClick={onOpen} bg="white" color="primary" border="2px" borderColor="primary">
+          <Button borderRadius="full" onClick={onOpen} bg="primary" color="white" _hover={{ bg: "secondary" }}>
             Kontakt Oss
           </Button>
         </Box>
