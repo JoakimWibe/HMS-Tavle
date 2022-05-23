@@ -1,24 +1,30 @@
-import { Box, Button, Checkbox, CheckboxGroup, Flex, FormLabel, Input, Radio, RadioGroup, Stack, Textarea } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Button, Flex, Heading, Input, Radio, RadioGroup, Stack, Textarea } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import FormError from "../common/FormError";
+import { useState } from "react";
+import SuccessMessage from "../common/SuccessMessage";
+import ErrorMessage from "../common/ErrorMessage";
+import axios from "axios";
 import { CUSTOM_ORDER_URL } from "../../constants/api";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Navn er obligatorisk"),
+  radio_1: yup.string().nullable().required("Vennligst velg 1 av alternativene"),
+  radio_2: yup.string().nullable().required("Vennligst velg 1 av alternativene"),
+  radio_3: yup.string().nullable().required("Vennligst velg 1 av alternativene"),
+  name: yup.string(),
+  company: yup.string(),
   email: yup.string().required("Epost er obligatorisk").email("Skriv inn en gylding epost adresse"),
-  phone: yup.string().required("Telefon er obligatorisk"),
-  message: yup.string().required("Meldingsfeltet er tomt"),
+  comment: yup.string(),
 });
 
 const CustomOrderForm = () => {
-  const [value, setValue] = useState("");
   const [success, setSuccess] = useState(null);
-
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -27,59 +33,109 @@ const CustomOrderForm = () => {
   async function onSubmit(data) {
     try {
       const response = await axios.post(CUSTOM_ORDER_URL, {
-        data: {},
+        data: {
+          radio_1: data.radio_1,
+          radio_2: data.radio_2,
+          radio_3: data.radio_3,
+          name: data.name,
+          company: data.company,
+          email: data.email,
+          comment: data.comment,
+        },
       });
       setSuccess(true);
+      reset();
     } catch (error) {
       setSuccess(false);
     }
   }
+
   return (
-    <Flex>
-      <form>
-        <CheckboxGroup>
-          <FormLabel fontWeight={"bold"}>Hva slags festemekanisme ønsker du på tavlen?</FormLabel>
-          <Stack direction={"column"} mb={10}>
-            <Checkbox value="klipsrammer">Klipsrammer</Checkbox>
-            <Checkbox value="klyper">Klyper</Checkbox>
-            <Checkbox value="ringpermholdere">Ringpermholdere</Checkbox>
-            <Checkbox value="plastboks">Plastboks</Checkbox>
-          </Stack>
-        </CheckboxGroup>
+    <Flex direction={"column"}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {success && <SuccessMessage>Sendt</SuccessMessage>}
+        {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
+        <Box mb={10}>
+          <RadioGroup mb={3}>
+            <Heading as={"h3"} fontSize={"lg"} mb={3}>
+              Hva slags festemekanisme ønsker du på tavlen?
+            </Heading>
+            <Stack direction="column">
+              <Radio {...register("radio_1")} value="klipsrammer">
+                Klipsrammer
+              </Radio>
+              <Radio {...register("radio_1")} value="ringpermholdere">
+                Ringpermholdere
+              </Radio>
+              <Radio {...register("radio_1")} value="klyper">
+                Klyper
+              </Radio>
+              <Radio {...register("radio_1")} value="plastboks">
+                Plastboks
+              </Radio>
+            </Stack>
+          </RadioGroup>
+          {errors.radio_1 && <FormError>{errors.radio_1.message}</FormError>}
+        </Box>
 
-        <CheckboxGroup>
-          <FormLabel fontWeight={"bold"}>Merk av om du ønsker noen av følgende installasjoner på tavlen</FormLabel>
-          <Stack direction={"column"} mb={10}>
-            <Checkbox value="brannskadeskrin">Brannskadeskrin</Checkbox>
-            <Checkbox value="førstehjelpskoffert">Førstehjelpskoffert</Checkbox>
-            <Checkbox value="ispose">Ispose</Checkbox>
-            <Checkbox value="førstehjelpsstasjon">Førstehjelpsstasjon</Checkbox>
-          </Stack>
-        </CheckboxGroup>
+        <Box mb={10}>
+          <RadioGroup mb={3}>
+            <Heading as={"h3"} fontSize={"lg"} mb={3}>
+              Merk av om du ønsker følgende installasjon på tavlen
+            </Heading>
+            <Stack direction="column">
+              <Radio {...register("radio_2")} value="brannskadeskrin">
+                Brannskadeskrin
+              </Radio>
+              <Radio {...register("radio_2")} value="førstehjelpskoffert">
+                Førstehjelpskoffert
+              </Radio>
+              <Radio {...register("radio_2")} value="ispose">
+                Ispose
+              </Radio>
+              <Radio {...register("radio_2")} value="førstehjelpsstasjon">
+                Førstehjelpsstasjon
+              </Radio>
+            </Stack>
+          </RadioGroup>
+          {errors.radio_2 && <FormError>{errors.radio_2.message}</FormError>}
+        </Box>
 
-        <RadioGroup onChange={setValue} value={value}>
-          <FormLabel fontWeight={"bold"}>Hvordan fant du frem til hmstavle.no?</FormLabel>
-          <Stack direction="column">
-            <Radio value="nettsøk">Nettsøk</Radio>
-            <Radio value="annonse på bygg.no">Annonse på bygg.no</Radio>
-            <Radio value="facebook">Facebook</Radio>
-          </Stack>
-        </RadioGroup>
+        <Box>
+          <RadioGroup mb={3}>
+            <Heading as={"h3"} fontSize={"lg"} mb={3}>
+              Hvordan fant du frem til hmstavle.no?
+            </Heading>
+            <Stack direction="column">
+              <Radio {...register("radio_3")} value="nettsøk">
+                Nettsøk
+              </Radio>
+              <Radio {...register("radio_3")} value="annonse på bygg.no">
+                Annonse på Bygg.no
+              </Radio>
+              <Radio {...register("radio_3")} value="facebook">
+                Facebook
+              </Radio>
+            </Stack>
+          </RadioGroup>
+          {errors.radio_3 && <FormError>{errors.radio_3.message}</FormError>}
+        </Box>
 
         <Box mb={3} mt={10}>
-          <Input mb={2} placeholder="Navn" type="text" />
+          <Input mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
         </Box>
 
         <Box mb={3}>
-          <Input mb={2} placeholder="Firma" type="text" />
+          <Input mb={2} placeholder="Firma (valgfri)" type="text" {...register("company")} />
         </Box>
 
         <Box mb={3}>
-          <Input mb={2} placeholder="Epost" type="email" />
+          <Input mb={2} placeholder="Epost" type="email" {...register("email")} />
+          {errors.email && <FormError>{errors.email.message}</FormError>}
         </Box>
 
         <Box mb={3}>
-          <Textarea mb={2} placeholder="Kommentar" type="text" />
+          <Textarea mb={2} placeholder="Kommentar (valgfri)" type="text" {...register("comment")} />
         </Box>
 
         <Button type="submit" borderRadius="full" mb={10} bg="primary" w="100%" color="white" _hover={{ bg: "secondary" }}>

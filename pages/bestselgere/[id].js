@@ -20,6 +20,9 @@ import Head from "../../components/layout/Head";
 import Layout from "../../components/layout/Layout";
 import { PRODUCTS_URL } from "../../constants/api";
 import NextLink from "next/link";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext";
+import { useRouter } from "next/router";
 
 const Bestselger = ({ popularProduct, errorMessage }) => {
   const id = popularProduct.id;
@@ -29,6 +32,25 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
   const imageAltText = popularProduct.attributes.image_alt_text;
 
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const router = useRouter();
+  const [auth] = useContext(AuthContext);
+
+  const deleteProduct = async () => {
+    const url = PRODUCTS_URL + id;
+
+    if (confirm("Er du sikker på at du vil slette dette produktet?")) {
+      try {
+        const response = await axios.delete(url, {
+          headers: {
+            Authorization: `Bearer ${auth.jwt}`,
+          },
+        });
+        router.push("/bestselgere");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <Layout>
@@ -66,6 +88,11 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
             <Button borderRadius="full" h={12} onClick={onOpen} bg="primary" color="white" _hover={{ bg: "secondary" }}>
               Kontakt for forespørsel
             </Button>
+            {auth && (
+              <Button mt={5} onClick={deleteProduct} borderRadius="full" h={12} bg="white" color="primary" border={"2px"}>
+                Slett produkt
+              </Button>
+            )}
           </Flex>
         )}
       </Flex>

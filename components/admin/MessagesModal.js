@@ -1,4 +1,4 @@
-import { ModalCloseButton, ModalContent, ModalHeader, ModalBody, Flex, Text, Divider } from "@chakra-ui/react";
+import { ModalCloseButton, ModalContent, ModalHeader, ModalBody, Flex, Text, Divider, Button } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -31,7 +31,7 @@ const MessagesModal = () => {
 
   return (
     <ModalContent w="sm">
-      <ModalHeader color="secondary">Meldinger</ModalHeader>
+      <ModalHeader color="secondary">Meldinger ({messages.length})</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         {errorMessage && <ErrorMessage content={"En feil har oppstått."} />}
@@ -47,6 +47,7 @@ const MessagesModal = () => {
                   <Text mb={2}>Epost: {message.attributes.email}</Text>
                   <Text mb={2}>Telefon: {message.attributes.phone}</Text>
                   <Text mb={2}>Melding: {message.attributes.message}</Text>
+                  <Button onClick={deleteMessage}>Slett</Button>
                 </Flex>
               );
             })

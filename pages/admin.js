@@ -1,8 +1,9 @@
-import { Button, Divider, Flex, Heading, Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading, Modal, ModalOverlay, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import MessagesModal from "../components/admin/MessagesModal";
 import OrdersModal from "../components/admin/OrdersModal";
+import { SpecialOrdersModal } from "../components/admin/SpecialOrdersModal";
 import AddProductForm from "../components/forms/AddProductForm";
 import Head from "../components/layout/Head";
 import Layout from "../components/layout/Layout";
@@ -13,6 +14,7 @@ const Admin = () => {
   const router = useRouter();
   const { isOpen: isMessagesOpen, onOpen: onMessagesOpen, onClose: onMessagesClose } = useDisclosure();
   const { isOpen: isOrdersOpen, onOpen: onOrdersOpen, onClose: onOrdersClose } = useDisclosure();
+  const { isOpen: isSpecialOrdersOpen, onOpen: onSpecialOrdersOpen, onClose: onSpecialOrdersClose } = useDisclosure();
 
   const logOut = () => {
     setAuth(null);
@@ -23,20 +25,25 @@ const Admin = () => {
   return (
     <Layout>
       <Head title="Admin" description="Admin side for HMS-tavle" />
-      <Flex h="100vh">
+      <Flex minHeight={"100vh"}>
         <Flex direction="column" width="2xl" mx="auto" px={10} mt={10}>
           <Heading as="h1" color="secondary" mb={3}>
             Admin
           </Heading>
 
-          <Divider mb={10} borderColor="secondary" />
+          <Divider mb={5} borderColor="secondary" />
 
-          <Flex>
+          <Flex direction={{ sm: "column", md: "row" }} justifyContent={{ sm: "center", md: "space-between" }}>
             <AddProductForm />
-            <Flex mt={10} direction={"column"}>
+            <Flex direction={"column"} mt={{ sm: 10, md: 0 }} justifyContent={"center"}>
+              <Button onClick={onMessagesOpen} mb={5} borderRadius="full" color={"white"} bg="primary" variant="filled" _hover={{ bg: "secondary" }}>
+                Meldinger
+              </Button>
+              <Button onClick={onOrdersOpen} mb={5} borderRadius="full" color={"white"} bg="primary" variant="filled" _hover={{ bg: "secondary" }}>
+                Bestillinger
+              </Button>
               <Button
-                onClick={onMessagesOpen}
-                w={52}
+                onClick={onSpecialOrdersOpen}
                 mb={5}
                 borderRadius="full"
                 color={"white"}
@@ -44,21 +51,9 @@ const Admin = () => {
                 variant="filled"
                 _hover={{ bg: "secondary" }}
               >
-                Se meldinger
+                Spesial bestillinger
               </Button>
-              <Button
-                onClick={onOrdersOpen}
-                w={52}
-                mb={5}
-                borderRadius="full"
-                color={"white"}
-                bg="primary"
-                variant="filled"
-                _hover={{ bg: "secondary" }}
-              >
-                Se bestillinger
-              </Button>
-              <Button w={52} onClick={logOut} borderRadius="full" bg="white" color="primary" border="2px" borderColor="primary">
+              <Button onClick={logOut} borderRadius="full" bg="white" color="primary" border="2px" borderColor="primary">
                 Logg ut
               </Button>
             </Flex>
@@ -74,6 +69,11 @@ const Admin = () => {
       <Modal onClose={onOrdersClose} isOpen={isOrdersOpen} isCentered>
         <ModalOverlay />
         <OrdersModal />
+      </Modal>
+
+      <Modal onClose={onSpecialOrdersClose} isOpen={isSpecialOrdersOpen} isCentered>
+        <ModalOverlay />
+        <SpecialOrdersModal />
       </Modal>
     </Layout>
   );

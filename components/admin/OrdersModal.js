@@ -31,7 +31,7 @@ const OrdersModal = () => {
 
   return (
     <ModalContent w="sm">
-      <ModalHeader color="secondary">Bestillinger</ModalHeader>
+      <ModalHeader color="secondary">Bestillinger ({orders.length})</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         {errorMessage && <ErrorMessage content={"En feil har oppstått."} />}

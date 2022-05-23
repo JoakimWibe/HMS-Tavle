@@ -12,7 +12,7 @@ import ErrorMessage from "../common/ErrorMessage";
 const schema = yup.object().shape({
   name: yup.string().required("Navn er obligatorisk"),
   email: yup.string().required("Epost er obligatorisk").email("Skriv inn en gylding epost adresse"),
-  phone: yup.string().required("Telefon er obligatorisk"),
+  phone: yup.number().typeError("Vennligst skriv et gyldig nummer"),
   message: yup.string().required("Meldingsfeltet er tomt"),
 });
 
@@ -22,6 +22,7 @@ const ContactForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -38,6 +39,7 @@ const ContactForm = () => {
         },
       });
       setSuccess(true);
+      reset();
     } catch (error) {
       setSuccess(false);
     }
@@ -60,7 +62,7 @@ const ContactForm = () => {
             {errors.email && <FormError>{errors.email.message}</FormError>}
           </Box>
           <Box mb={3}>
-            <Input mb={2} placeholder="Telefon" type="number" {...register("phone")} />
+            <Input mb={2} placeholder="Telefon" {...register("phone")} />
             {errors.phone && <FormError>{errors.phone.message}</FormError>}
           </Box>
           <Box mb={3}>

@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   email: yup.string().required("Epost er obligatorisk").email("Skriv inn en gylding epost adresse"),
-  password: yup.string().required("Passord er obligatorisk"),
+  password: yup.string().required("Passord er obligatorisk").min(4, "Passord må inneholde minst 4 sifre"),
 });
 
 const LoginForm = () => {

@@ -11,11 +11,11 @@ import axios from "axios";
 
 const schema = yup.object().shape({
   email: yup.string().required("Epost er obligatorisk").email("Skriv inn en gylding epost adresse"),
-  name: yup.string().required("Navn er obligatorisk"),
-  amount: yup.string().required("Vennligst velg et antall tavler"),
+  name: yup.string(),
+  amount: yup.number().typeError("Vennligst skriv et gyldig nummer").required("Antall er obligatorisk"),
   product_title: yup.string(),
   comment: yup.string(),
-  name: yup.string(),
+  company: yup.string(),
 });
 
 const PopularProductForm = ({ title }) => {
@@ -24,6 +24,7 @@ const PopularProductForm = ({ title }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -42,6 +43,7 @@ const PopularProductForm = ({ title }) => {
         },
       });
       setSuccess(true);
+      reset();
     } catch (error) {
       setSuccess(false);
     }
@@ -61,12 +63,11 @@ const PopularProductForm = ({ title }) => {
             </Flex>
           </fieldset>
           <Box mb={3}>
-            <Input mb={2} placeholder="Antall tavler" type="number" {...register("amount")} />
+            <Input mb={2} placeholder="Antall tavler" {...register("amount")} />
             {errors.amount && <FormError>{errors.amount.message}</FormError>}
           </Box>
           <Box mb={3}>
-            <Input mb={2} placeholder="Fullt navn" type="text" {...register("name")} />
-            {errors.name && <FormError>{errors.name.message}</FormError>}
+            <Input mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
           </Box>
           <Box mb={3}>
             <Input mb={2} placeholder="Firma/organisasjon (valgfri)" type="text" {...register("company")} />
