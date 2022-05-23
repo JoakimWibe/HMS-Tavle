@@ -8,7 +8,7 @@ import Navbar from "./Navbar";
 
 const Layout = ({ children }) => {
   const router = useRouter();
-  const [auth, setAuth] = useContext(AuthContext);
+  const [auth] = useContext(AuthContext);
 
   useEffect(() => {
     if (router.pathname == "/admin" && !auth) router.push("/");
