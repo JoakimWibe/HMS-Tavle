@@ -38,7 +38,7 @@ const Bestselgere = (props) => {
   return (
     <Layout>
       <Head title="Våre Bestselgere" description="Oversikt over de mest solgte produktene." />
-      <Flex direction="column">
+      <Flex minHeight={"100vh"} direction="column">
         <Banner />
 
         <Flex direction="column" maxWidth="2xl" mx="auto" px={10} mt={10}>

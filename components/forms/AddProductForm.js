@@ -24,6 +24,7 @@ const schema = yup.object().shape({
 const AddProductForm = () => {
   const [success, setSuccess] = useState(null);
   const [auth] = useContext(AuthContext);
+  const [sending, setSending] = useState(false);
 
   const {
     register,
@@ -53,9 +54,12 @@ const AddProductForm = () => {
         }
       );
       setSuccess(true);
+      setSending(true);
       reset();
     } catch (error) {
       setSuccess(false);
+    } finally {
+      setSending(false);
     }
   }
 
@@ -67,26 +71,38 @@ const AddProductForm = () => {
       {success && <SuccessMessage>Produkt opprettet.</SuccessMessage>}
       {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box mb={3}>
-          <Input mb={2} placeholder="Navn" type="text" {...register("name")} />
-          {errors.name && <FormError>{errors.name.message}</FormError>}
-        </Box>
-        <Box mb={3}>
-          <Textarea mb={2} placeholder="Beskrivelse" type="text" {...register("description")} />
-          {errors.description && <FormError>{errors.description.message}</FormError>}
-        </Box>
-        <Box mb={3}>
-          <Input mb={2} placeholder="Bilde URL" type="text" {...register("image_url")} />
-          {errors.image_url && <FormError>{errors.image_url.message}</FormError>}
-        </Box>
-        <Box mb={3}>
-          <Input mb={2} placeholder="Alt text" type="text" {...register("image_alt_text")} />
-          {errors.image_alt_text && <FormError>{errors.image_alt_text.message}</FormError>}
-        </Box>
+        <fieldset disabled={sending}>
+          <Box mb={3}>
+            <Input mb={2} placeholder="Navn" type="text" {...register("name")} />
+            {errors.name && <FormError>{errors.name.message}</FormError>}
+          </Box>
+          <Box mb={3}>
+            <Textarea mb={2} placeholder="Beskrivelse" type="text" {...register("description")} />
+            {errors.description && <FormError>{errors.description.message}</FormError>}
+          </Box>
+          <Box mb={3}>
+            <Input mb={2} placeholder="Bilde URL" type="text" {...register("image_url")} />
+            {errors.image_url && <FormError>{errors.image_url.message}</FormError>}
+          </Box>
+          <Box mb={3}>
+            <Input mb={2} placeholder="Alt text" type="text" {...register("image_alt_text")} />
+            {errors.image_alt_text && <FormError>{errors.image_alt_text.message}</FormError>}
+          </Box>
 
-        <Button type="submit" borderRadius="full" mb={5} bg="primary" w="100%" color="white" _hover={{ bg: "secondary" }}>
-          Opprett produkt
-        </Button>
+          <Button
+            isLoading={sending}
+            loadingText="Oppretter..."
+            type="submit"
+            borderRadius="full"
+            mb={5}
+            bg="primary"
+            w="100%"
+            color="white"
+            _hover={{ bg: "secondary" }}
+          >
+            Opprett produkt
+          </Button>
+        </fieldset>
       </form>
     </Flex>
   );

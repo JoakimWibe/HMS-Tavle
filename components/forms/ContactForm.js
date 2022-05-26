@@ -18,6 +18,7 @@ const schema = yup.object().shape({
 
 const ContactForm = () => {
   const [success, setSuccess] = useState(null);
+  const [sending, setSending] = useState(false);
 
   const {
     register,
@@ -39,9 +40,12 @@ const ContactForm = () => {
         },
       });
       setSuccess(true);
+      setSending(true);
       reset();
     } catch (error) {
       setSuccess(false);
+    } finally {
+      setSending(false);
     }
   }
 
@@ -53,26 +57,38 @@ const ContactForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           {success && <SuccessMessage>Meldingen din er sendt.</SuccessMessage>}
           {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
-          <Box mb={3}>
-            <Input mb={2} placeholder="Navn" type="text" {...register("name")} />
-            {errors.name && <FormError>{errors.name.message}</FormError>}
-          </Box>
-          <Box mb={3}>
-            <Input mb={2} placeholder="Email" type="email" {...register("email")} />
-            {errors.email && <FormError>{errors.email.message}</FormError>}
-          </Box>
-          <Box mb={3}>
-            <Input mb={2} placeholder="Telefon" {...register("phone")} />
-            {errors.phone && <FormError>{errors.phone.message}</FormError>}
-          </Box>
-          <Box mb={3}>
-            <Textarea mb={2} placeholder="Melding" type="text" {...register("message")} />
-            {errors.message && <FormError>{errors.message.message}</FormError>}
-          </Box>
+          <fieldset disabled={sending}>
+            <Box mb={3}>
+              <Input mb={2} placeholder="Navn" type="text" {...register("name")} />
+              {errors.name && <FormError>{errors.name.message}</FormError>}
+            </Box>
+            <Box mb={3}>
+              <Input mb={2} placeholder="Email" type="email" {...register("email")} />
+              {errors.email && <FormError>{errors.email.message}</FormError>}
+            </Box>
+            <Box mb={3}>
+              <Input mb={2} placeholder="Telefon" {...register("phone")} />
+              {errors.phone && <FormError>{errors.phone.message}</FormError>}
+            </Box>
+            <Box mb={3}>
+              <Textarea mb={2} placeholder="Melding" type="text" {...register("message")} />
+              {errors.message && <FormError>{errors.message.message}</FormError>}
+            </Box>
 
-          <Button type="submit" borderRadius="full" mb={5} bg="primary" w="100%" color="white" _hover={{ bg: "secondary" }}>
-            Send
-          </Button>
+            <Button
+              isLoading={sending}
+              loadingText="Sender..."
+              type="submit"
+              borderRadius="full"
+              mb={5}
+              bg="primary"
+              w="100%"
+              color="white"
+              _hover={{ bg: "secondary" }}
+            >
+              Send
+            </Button>
+          </fieldset>
         </form>
       </ModalBody>
     </ModalContent>

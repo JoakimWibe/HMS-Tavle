@@ -21,6 +21,8 @@ const schema = yup.object().shape({
 
 const CustomOrderForm = () => {
   const [success, setSuccess] = useState(null);
+  const [sending, setSending] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -44,103 +46,118 @@ const CustomOrderForm = () => {
         },
       });
       setSuccess(true);
+      setSending(true);
       reset();
     } catch (error) {
       setSuccess(false);
+    } finally {
+      setSending(false);
     }
   }
 
   return (
     <Flex direction={"column"}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <fieldset disabled={sending}>
+          <Box mb={10}>
+            <RadioGroup mb={3}>
+              <Heading as={"h3"} fontSize={"lg"} mb={3}>
+                Hva slags festemekanisme ønsker du på tavlen?
+              </Heading>
+              <Stack direction="column">
+                <Radio {...register("radio_1")} value="klipsrammer">
+                  Klipsrammer
+                </Radio>
+                <Radio {...register("radio_1")} value="ringpermholdere">
+                  Ringpermholdere
+                </Radio>
+                <Radio {...register("radio_1")} value="klyper">
+                  Klyper
+                </Radio>
+                <Radio {...register("radio_1")} value="plastboks">
+                  Plastboks
+                </Radio>
+              </Stack>
+            </RadioGroup>
+            {errors.radio_1 && <FormError>{errors.radio_1.message}</FormError>}
+          </Box>
+
+          <Box mb={10}>
+            <RadioGroup mb={3}>
+              <Heading as={"h3"} fontSize={"lg"} mb={3}>
+                Merk av om du ønsker følgende installasjon på tavlen
+              </Heading>
+              <Stack direction="column">
+                <Radio {...register("radio_2")} value="brannskadeskrin">
+                  Brannskadeskrin
+                </Radio>
+                <Radio {...register("radio_2")} value="førstehjelpskoffert">
+                  Førstehjelpskoffert
+                </Radio>
+                <Radio {...register("radio_2")} value="ispose">
+                  Ispose
+                </Radio>
+                <Radio {...register("radio_2")} value="førstehjelpsstasjon">
+                  Førstehjelpsstasjon
+                </Radio>
+              </Stack>
+            </RadioGroup>
+            {errors.radio_2 && <FormError>{errors.radio_2.message}</FormError>}
+          </Box>
+
+          <Box>
+            <RadioGroup mb={3}>
+              <Heading as={"h3"} fontSize={"lg"} mb={3}>
+                Hvordan fant du frem til hmstavle.no?
+              </Heading>
+              <Stack direction="column">
+                <Radio {...register("radio_3")} value="nettsøk">
+                  Nettsøk
+                </Radio>
+                <Radio {...register("radio_3")} value="annonse på bygg.no">
+                  Annonse på Bygg.no
+                </Radio>
+                <Radio {...register("radio_3")} value="facebook">
+                  Facebook
+                </Radio>
+              </Stack>
+            </RadioGroup>
+            {errors.radio_3 && <FormError>{errors.radio_3.message}</FormError>}
+          </Box>
+
+          <Box mb={3} mt={10}>
+            <Input mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
+          </Box>
+
+          <Box mb={3}>
+            <Input mb={2} placeholder="Firma (valgfri)" type="text" {...register("company")} />
+          </Box>
+
+          <Box mb={3}>
+            <Input mb={2} placeholder="Epost" type="email" {...register("email")} />
+            {errors.email && <FormError>{errors.email.message}</FormError>}
+          </Box>
+
+          <Box mb={3}>
+            <Textarea mb={2} placeholder="Kommentar (valgfri)" type="text" {...register("comment")} />
+          </Box>
+
+          <Button
+            isLoading={sending}
+            loadingText="Sender..."
+            type="submit"
+            borderRadius="full"
+            mb={10}
+            bg="primary"
+            w="100%"
+            color="white"
+            _hover={{ bg: "secondary" }}
+          >
+            Send
+          </Button>
+        </fieldset>
         {success && <SuccessMessage>Sendt</SuccessMessage>}
         {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
-        <Box mb={10}>
-          <RadioGroup mb={3}>
-            <Heading as={"h3"} fontSize={"lg"} mb={3}>
-              Hva slags festemekanisme ønsker du på tavlen?
-            </Heading>
-            <Stack direction="column">
-              <Radio {...register("radio_1")} value="klipsrammer">
-                Klipsrammer
-              </Radio>
-              <Radio {...register("radio_1")} value="ringpermholdere">
-                Ringpermholdere
-              </Radio>
-              <Radio {...register("radio_1")} value="klyper">
-                Klyper
-              </Radio>
-              <Radio {...register("radio_1")} value="plastboks">
-                Plastboks
-              </Radio>
-            </Stack>
-          </RadioGroup>
-          {errors.radio_1 && <FormError>{errors.radio_1.message}</FormError>}
-        </Box>
-
-        <Box mb={10}>
-          <RadioGroup mb={3}>
-            <Heading as={"h3"} fontSize={"lg"} mb={3}>
-              Merk av om du ønsker følgende installasjon på tavlen
-            </Heading>
-            <Stack direction="column">
-              <Radio {...register("radio_2")} value="brannskadeskrin">
-                Brannskadeskrin
-              </Radio>
-              <Radio {...register("radio_2")} value="førstehjelpskoffert">
-                Førstehjelpskoffert
-              </Radio>
-              <Radio {...register("radio_2")} value="ispose">
-                Ispose
-              </Radio>
-              <Radio {...register("radio_2")} value="førstehjelpsstasjon">
-                Førstehjelpsstasjon
-              </Radio>
-            </Stack>
-          </RadioGroup>
-          {errors.radio_2 && <FormError>{errors.radio_2.message}</FormError>}
-        </Box>
-
-        <Box>
-          <RadioGroup mb={3}>
-            <Heading as={"h3"} fontSize={"lg"} mb={3}>
-              Hvordan fant du frem til hmstavle.no?
-            </Heading>
-            <Stack direction="column">
-              <Radio {...register("radio_3")} value="nettsøk">
-                Nettsøk
-              </Radio>
-              <Radio {...register("radio_3")} value="annonse på bygg.no">
-                Annonse på Bygg.no
-              </Radio>
-              <Radio {...register("radio_3")} value="facebook">
-                Facebook
-              </Radio>
-            </Stack>
-          </RadioGroup>
-          {errors.radio_3 && <FormError>{errors.radio_3.message}</FormError>}
-        </Box>
-
-        <Box mb={3} mt={10}>
-          <Input mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
-        </Box>
-
-        <Box mb={3}>
-          <Input mb={2} placeholder="Firma (valgfri)" type="text" {...register("company")} />
-        </Box>
-
-        <Box mb={3}>
-          <Input mb={2} placeholder="Epost" type="email" {...register("email")} />
-          {errors.email && <FormError>{errors.email.message}</FormError>}
-        </Box>
-
-        <Box mb={3}>
-          <Textarea mb={2} placeholder="Kommentar (valgfri)" type="text" {...register("comment")} />
-        </Box>
-
-        <Button type="submit" borderRadius="full" mb={10} bg="primary" w="100%" color="white" _hover={{ bg: "secondary" }}>
-          Send
-        </Button>
       </form>
     </Flex>
   );

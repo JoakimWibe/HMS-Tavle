@@ -13,11 +13,8 @@ import { Dropdown } from "./Dropdown";
 const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const [auth, setAuth] = useContext(AuthContext);
-
+  const [auth] = useContext(AuthContext);
   const [dropdown, setDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -32,29 +29,40 @@ const Navbar = () => {
 
   return (
     <Box position="fixed" w="100%" bg="white" zIndex={1}>
-      <Flex h={20} justifyContent="space-between" alignItems="center" p={5}>
+      <Flex
+        direction={{ lg: "row", md: "column", sm: "row" }}
+        h={{ lg: 20, md: 32, sm: 20 }}
+        justifyContent="space-between"
+        alignItems="center"
+        p={5}
+      >
         <NextLink href="/" passHref>
-          <Image cursor="pointer" src={Logo.src} alt="HMS-Tavle logo" h={50} />
+          <Image cursor="pointer" src={Logo.src} alt="HMS-Tavle logo" h={50} mb={{ lg: 0, md: 2, sm: 0 }} />
         </NextLink>
         <Box display={{ sm: "none", md: "flex" }} alignItems="center">
+          <NextLink href="/" passHref>
+            <Link _hover={{ color: "primary" }} color={router.pathname === "/" ? "primary" : ""} mr={5}>
+              Hjem
+            </Link>
+          </NextLink>
           <NextLink href="/bestselgere" passHref>
-            <Link textDecoration={router.pathname === "/bestselgere" ? "underline" : ""} mr={5}>
+            <Link _hover={{ color: "primary" }} color={router.pathname === "/bestselgere" ? "primary" : ""} mr={5}>
               Våre bestselgere
             </Link>
           </NextLink>
           <NextLink href="/bygg-hms" passHref>
-            <Link textDecoration={router.pathname === "/bygg-hms" ? "underline" : ""} mr={5}>
+            <Link _hover={{ color: "primary" }} color={router.pathname === "/bygg-hms" ? "primary" : ""} mr={5}>
               Bygg din egen HMS-tavle
             </Link>
           </NextLink>
           <NextLink href="/faq" passHref>
-            <Link textDecoration={router.pathname === "/faq" ? "underline" : ""} mr={5}>
+            <Link _hover={{ color: "primary" }} color={router.pathname === "/faq" ? "primary" : ""} mr={5}>
               Ofte stilte spørsmål
             </Link>
           </NextLink>
           {isLoggedIn && (
             <NextLink href="/admin" passHref>
-              <Link textDecoration={router.pathname === "/admin" ? "underline" : ""} mr={5}>
+              <Link _hover={{ color: "primary" }} color={router.pathname === "/admin" ? "primary" : ""} mr={5}>
                 Admin
               </Link>
             </NextLink>

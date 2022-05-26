@@ -3,8 +3,8 @@ import { AuthProvider } from "../context/AuthContext";
 
 const breakpoints = {
   sm: "320px",
-  md: "890px",
-  lg: "960px",
+  md: "800px",
+  lg: "1000px",
   xl: "1200px",
   "2xl": "1536px",
 };

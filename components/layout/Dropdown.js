@@ -9,12 +9,9 @@ import ContactForm from "../forms/ContactForm";
 
 export const Dropdown = () => {
   const router = useRouter();
-
   const { isOpen, onClose, onOpen } = useDisclosure();
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const [auth, setAuth] = useContext(AuthContext);
+  const [auth] = useContext(AuthContext);
 
   useEffect(() => {
     if (auth) {
@@ -32,9 +29,23 @@ export const Dropdown = () => {
         justifyContent="center"
         alignItems="center"
       >
+        <NextLink href="/" passHref>
+          <Link
+            _hover={{ color: "primary" }}
+            color={router.pathname === "/" ? "primary" : ""}
+            py={5}
+            textAlign="center"
+            borderTop="1px"
+            borderColor="gray.200"
+            w="100%"
+          >
+            Hjem
+          </Link>
+        </NextLink>
         <NextLink href="/bestselgere" passHref>
           <Link
-            textDecoration={router.pathname === "/bestselgere" ? "underline" : ""}
+            _hover={{ color: "primary" }}
+            color={router.pathname === "/bestselgere" ? "primary" : ""}
             py={5}
             textAlign="center"
             borderTop="1px"
@@ -46,7 +57,8 @@ export const Dropdown = () => {
         </NextLink>
         <NextLink href="/bygg-hms" passHref>
           <Link
-            textDecoration={router.pathname === "/bygg-hms" ? "underline" : ""}
+            _hover={{ color: "primary" }}
+            color={router.pathname === "/bygg-hms" ? "primary" : ""}
             py={5}
             textAlign="center"
             borderTop="1px"
@@ -58,7 +70,8 @@ export const Dropdown = () => {
         </NextLink>
         <NextLink href="/faq" passHref>
           <Link
-            textDecoration={router.pathname === "/faq" ? "underline" : ""}
+            _hover={{ color: "primary" }}
+            color={router.pathname === "/faq" ? "primary" : ""}
             py={5}
             textAlign="center"
             borderY="1px"
@@ -71,9 +84,10 @@ export const Dropdown = () => {
         {isLoggedIn && (
           <NextLink href="/admin" passHref>
             <Link
+              _hover={{ color: "primary" }}
               borderBottom="1px"
               borderColor="gray.200"
-              textDecoration={router.pathname === "/admin" ? "underline" : ""}
+              color={router.pathname === "/admin" ? "primary" : ""}
               py={5}
               textAlign="center"
               w="100%"
@@ -83,7 +97,7 @@ export const Dropdown = () => {
           </NextLink>
         )}
         <Button borderRadius="full" onClick={onOpen} mb={5} bg="primary" _hover={{ bg: "secondary" }} color="white" my={5}>
-          Kontakt Oss
+          Kontakt oss
         </Button>
       </Box>
 

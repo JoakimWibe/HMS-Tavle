@@ -12,7 +12,7 @@ const Home = (props) => {
   return (
     <Layout>
       <Head description="Hjemmeside for HMS-tavle" />
-      <Flex direction="column">
+      <Flex minHeight={"100vh"} direction="column">
         <Banner />
 
         <Flex h={600} mb={10} bg="gray.300" direction="column" justifyContent="center" alignItems="center">

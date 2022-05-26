@@ -20,6 +20,7 @@ const schema = yup.object().shape({
 
 const PopularProductForm = ({ title }) => {
   const [success, setSuccess] = useState(null);
+  const [sending, setSending] = useState(false);
 
   const {
     register,
@@ -43,9 +44,12 @@ const PopularProductForm = ({ title }) => {
         },
       });
       setSuccess(true);
+      setSending(false);
       reset();
     } catch (error) {
       setSuccess(false);
+    } finally {
+      setSending(false);
     }
   }
 
@@ -62,27 +66,39 @@ const PopularProductForm = ({ title }) => {
               <Input value={title} type="text" variant={"flushed"} {...register("product_title")} />
             </Flex>
           </fieldset>
-          <Box mb={3}>
-            <Input mb={2} placeholder="Antall tavler" {...register("amount")} />
-            {errors.amount && <FormError>{errors.amount.message}</FormError>}
-          </Box>
-          <Box mb={3}>
-            <Input mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
-          </Box>
-          <Box mb={3}>
-            <Input mb={2} placeholder="Firma/organisasjon (valgfri)" type="text" {...register("company")} />
-          </Box>
-          <Box mb={3}>
-            <Input mb={2} placeholder="Epost" type="email" {...register("email")} />
-            {errors.email && <FormError>{errors.email.message}</FormError>}
-          </Box>
-          <Box mb={3}>
-            <Textarea mb={2} placeholder="Kommentar til din forespørsel (valgfri)" type="text" {...register("comment")} />
-          </Box>
+          <fieldset disabled={sending}>
+            <Box mb={3}>
+              <Input mb={2} placeholder="Antall tavler" {...register("amount")} />
+              {errors.amount && <FormError>{errors.amount.message}</FormError>}
+            </Box>
+            <Box mb={3}>
+              <Input mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
+            </Box>
+            <Box mb={3}>
+              <Input mb={2} placeholder="Firma/organisasjon (valgfri)" type="text" {...register("company")} />
+            </Box>
+            <Box mb={3}>
+              <Input mb={2} placeholder="Epost" type="email" {...register("email")} />
+              {errors.email && <FormError>{errors.email.message}</FormError>}
+            </Box>
+            <Box mb={3}>
+              <Textarea mb={2} placeholder="Kommentar til din forespørsel (valgfri)" type="text" {...register("comment")} />
+            </Box>
 
-          <Button type="submit" borderRadius="full" mb={5} bg="primary" w="100%" color="white" _hover={{ bg: "secondary" }}>
-            Send forespørsel
-          </Button>
+            <Button
+              isLoading={sending}
+              loadingText={"Sender..."}
+              type="submit"
+              borderRadius="full"
+              mb={5}
+              bg="primary"
+              w="100%"
+              color="white"
+              _hover={{ bg: "secondary" }}
+            >
+              Send forespørsel
+            </Button>
+          </fieldset>
         </form>
       </ModalBody>
     </ModalContent>

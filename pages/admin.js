@@ -1,5 +1,7 @@
-import { Button, Divider, Flex, Heading, Modal, ModalOverlay, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading, Modal, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import MessagesModal from "../components/admin/MessagesModal";
 import OrdersModal from "../components/admin/OrdersModal";
@@ -15,6 +17,14 @@ const Admin = () => {
   const { isOpen: isMessagesOpen, onOpen: onMessagesOpen, onClose: onMessagesClose } = useDisclosure();
   const { isOpen: isOrdersOpen, onOpen: onOrdersOpen, onClose: onOrdersClose } = useDisclosure();
   const { isOpen: isSpecialOrdersOpen, onOpen: onSpecialOrdersOpen, onClose: onSpecialOrdersClose } = useDisclosure();
+  const [scrollBehavior, setScrollBehavior] = useState("inside");
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (auth) {
+      setUser(auth.user.email);
+    }
+  }, []);
 
   const logOut = () => {
     setAuth(null);
@@ -27,9 +37,15 @@ const Admin = () => {
       <Head title="Admin" description="Admin side for HMS-tavle" />
       <Flex minHeight={"100vh"}>
         <Flex direction="column" width="2xl" mx="auto" px={10} mt={10}>
-          <Heading as="h1" color="secondary" mb={3}>
-            Admin
-          </Heading>
+          <Flex direction={{ sm: "column", md: "row" }} alignItems={{ sm: "start", md: "center" }} justifyContent={"space-between"}>
+            <Heading mb={{ sm: 2, md: 0 }} as="h1" color="secondary">
+              Admin
+            </Heading>
+
+            <Text mb={{ sm: 2, md: 0 }} fontWeight={"bold"}>
+              Logget inn som {user}
+            </Text>
+          </Flex>
 
           <Divider mb={5} borderColor="secondary" />
 
@@ -61,17 +77,17 @@ const Admin = () => {
         </Flex>
       </Flex>
 
-      <Modal onClose={onMessagesClose} isOpen={isMessagesOpen} isCentered>
+      <Modal scrollBehavior={scrollBehavior} onClose={onMessagesClose} isOpen={isMessagesOpen} isCentered>
         <ModalOverlay />
         <MessagesModal />
       </Modal>
 
-      <Modal onClose={onOrdersClose} isOpen={isOrdersOpen} isCentered>
+      <Modal scrollBehavior={scrollBehavior} onClose={onOrdersClose} isOpen={isOrdersOpen} isCentered>
         <ModalOverlay />
         <OrdersModal />
       </Modal>
 
-      <Modal onClose={onSpecialOrdersClose} isOpen={isSpecialOrdersOpen} isCentered>
+      <Modal scrollBehavior={scrollBehavior} onClose={onSpecialOrdersClose} isOpen={isSpecialOrdersOpen} isCentered>
         <ModalOverlay />
         <SpecialOrdersModal />
       </Modal>

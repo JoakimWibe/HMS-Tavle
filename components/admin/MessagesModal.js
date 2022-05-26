@@ -1,8 +1,6 @@
 import { ModalCloseButton, ModalContent, ModalHeader, ModalBody, Flex, Text, Divider, Button } from "@chakra-ui/react";
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { CONTACT_URL } from "../../constants/api";
 import AuthContext from "../../context/AuthContext";
 import ErrorMessage from "../common/ErrorMessage";
@@ -12,22 +10,21 @@ const MessagesModal = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const response = await axios.get(CONTACT_URL, {
-          headers: {
-            Authorization: `Bearer ${auth.jwt}`,
-          },
-        });
-        setMessages(response.data.data);
-      } catch (error) {
-        setErrorMessage("En feil har oppstått.");
-      }
-    };
+  const fetchMessages = async () => {
+    try {
+      const response = await axios.get(CONTACT_URL, {
+        headers: {
+          Authorization: `Bearer ${auth.jwt}`,
+        },
+      });
+      setMessages(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      setErrorMessage("En feil har oppstått.");
+    }
+  };
 
-    fetchMessages();
-  }, []);
+  fetchMessages();
 
   return (
     <ModalContent w="sm">
@@ -37,9 +34,10 @@ const MessagesModal = () => {
         {errorMessage && <ErrorMessage content={"En feil har oppstått."} />}
         <Flex direction={"column"}>
           {messages.length < 1 ? (
-            <Text mb={2}>Ingen Meldinger</Text>
+            <Text mb={2}>Ingen meldinger</Text>
           ) : (
             messages.map((message) => {
+              const published = new Date(message.attributes.publishedAt);
               return (
                 <Flex direction={"column"} key={message.id}>
                   <Divider mb={2} borderColor="secondary" />
@@ -47,7 +45,7 @@ const MessagesModal = () => {
                   <Text mb={2}>Epost: {message.attributes.email}</Text>
                   <Text mb={2}>Telefon: {message.attributes.phone}</Text>
                   <Text mb={2}>Melding: {message.attributes.message}</Text>
-                  <Button onClick={deleteMessage}>Slett</Button>
+                  <Text mb={2}>Dato sendt: {published.toLocaleDateString()}</Text>
                 </Flex>
               );
             })

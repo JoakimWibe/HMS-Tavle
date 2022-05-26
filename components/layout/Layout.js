@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
         <Navbar />
       </header>
       <main>
-        <Box pt={20}>{children}</Box>
+        <Box pt={{ lg: 20, md: 32, sm: 20 }}>{children}</Box>
       </main>
       <footer>
         <Footer />

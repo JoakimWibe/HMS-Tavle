@@ -23,6 +23,8 @@ import NextLink from "next/link";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Bestselger = ({ popularProduct, errorMessage }) => {
   const id = popularProduct.id;
@@ -34,6 +36,15 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
   const [auth] = useContext(AuthContext);
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    if (auth) {
+      setAuthorized(true);
+    } else {
+      setAuthorized(false);
+    }
+  }, []);
 
   const deleteProduct = async () => {
     const url = PRODUCTS_URL + id;
@@ -88,7 +99,7 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
             <Button borderRadius="full" h={12} onClick={onOpen} bg="primary" color="white" _hover={{ bg: "secondary" }}>
               Kontakt for forespørsel
             </Button>
-            {auth && (
+            {authorized && (
               <Button mt={5} onClick={deleteProduct} borderRadius="full" h={12} bg="white" color="primary" border={"2px"}>
                 Slett produkt
               </Button>

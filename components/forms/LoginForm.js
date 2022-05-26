@@ -53,7 +53,7 @@ const LoginForm = () => {
 
   return (
     <ModalContent w="sm">
-      <ModalHeader color="secondary">Logg inn</ModalHeader>
+      <ModalHeader color="secondary">Logg Inn</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <form onSubmit={handleSubmit(onSubmit)}>
