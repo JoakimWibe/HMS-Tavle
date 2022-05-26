@@ -19,6 +19,7 @@ const schema = yup.object().shape({
 const ContactForm = () => {
   const [success, setSuccess] = useState(null);
   const [sending, setSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const {
     register,
@@ -43,7 +44,7 @@ const ContactForm = () => {
       setSending(true);
       reset();
     } catch (error) {
-      setSuccess(false);
+      setErrorMessage("En feil har oppstått.");
     } finally {
       setSending(false);
     }
@@ -56,7 +57,7 @@ const ContactForm = () => {
       <ModalBody>
         <form onSubmit={handleSubmit(onSubmit)}>
           {success && <SuccessMessage>Meldingen din er sendt.</SuccessMessage>}
-          {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
+          {errorMessage && <ErrorMessage content={errorMessage} />}
           <fieldset disabled={sending}>
             <Box mb={3}>
               <Input mb={2} placeholder="Navn" type="text" {...register("name")} />

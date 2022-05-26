@@ -21,6 +21,7 @@ const schema = yup.object().shape({
 const PopularProductForm = ({ title }) => {
   const [success, setSuccess] = useState(null);
   const [sending, setSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const {
     register,
@@ -47,7 +48,7 @@ const PopularProductForm = ({ title }) => {
       setSending(false);
       reset();
     } catch (error) {
-      setSuccess(false);
+      setErrorMessage("En feil har oppstått.");
     } finally {
       setSending(false);
     }
@@ -60,7 +61,7 @@ const PopularProductForm = ({ title }) => {
       <ModalBody>
         <form onSubmit={handleSubmit(onSubmit)}>
           {success && <SuccessMessage>Meldingen din er sendt.</SuccessMessage>}
-          {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
+          {errorMessage && <ErrorMessage content={errorMessage} />}
           <fieldset disabled={true}>
             <Flex mb={5}>
               <Input value={title} type="text" variant={"flushed"} {...register("product_title")} />

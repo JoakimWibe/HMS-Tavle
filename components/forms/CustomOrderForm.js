@@ -22,6 +22,7 @@ const schema = yup.object().shape({
 const CustomOrderForm = () => {
   const [success, setSuccess] = useState(null);
   const [sending, setSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const {
     register,
@@ -49,7 +50,7 @@ const CustomOrderForm = () => {
       setSending(true);
       reset();
     } catch (error) {
-      setSuccess(false);
+      setErrorMessage("En feil har oppstått.");
     } finally {
       setSending(false);
     }
@@ -157,7 +158,7 @@ const CustomOrderForm = () => {
           </Button>
         </fieldset>
         {success && <SuccessMessage>Sendt</SuccessMessage>}
-        {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
+        {errorMessage && <ErrorMessage content={errorMessage} />}
       </form>
     </Flex>
   );

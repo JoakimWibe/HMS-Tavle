@@ -25,6 +25,7 @@ const AddProductForm = () => {
   const [success, setSuccess] = useState(null);
   const [auth] = useContext(AuthContext);
   const [sending, setSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const {
     register,
@@ -57,7 +58,7 @@ const AddProductForm = () => {
       setSending(true);
       reset();
     } catch (error) {
-      setSuccess(false);
+      setErrorMessage("En feil har oppstått.");
     } finally {
       setSending(false);
     }
@@ -69,7 +70,7 @@ const AddProductForm = () => {
         Opprett et produkt
       </Heading>
       {success && <SuccessMessage>Produkt opprettet.</SuccessMessage>}
-      {success === false ?? <ErrorMessage content={"En feil har oppstått"} />}
+      {errorMessage && <ErrorMessage content={errorMessage} />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset disabled={sending}>
           <Box mb={3}>
