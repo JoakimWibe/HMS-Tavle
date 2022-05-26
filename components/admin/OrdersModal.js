@@ -1,5 +1,6 @@
-import { ModalCloseButton, ModalContent, ModalHeader, ModalBody, Flex, Text, Divider } from "@chakra-ui/react";
+import { ModalCloseButton, ModalContent, ModalHeader, ModalBody, Flex, Text, Divider, Spinner } from "@chakra-ui/react";
 import axios from "axios";
+import { useEffect } from "react";
 import { useState, useContext } from "react";
 import { ORDER_URL } from "../../constants/api";
 import AuthContext from "../../context/AuthContext";
@@ -9,31 +10,37 @@ const OrdersModal = () => {
   const [auth] = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const fetchOrders = async () => {
-    try {
-      const response = await axios.get(ORDER_URL, {
-        headers: {
-          Authorization: `Bearer ${auth.jwt}`,
-        },
-      });
-      setOrders(response.data.data);
-    } catch (error) {
-      setErrorMessage("En feil har oppstått.");
-    }
-  };
+  useEffect(() => {
+    const fetchOrders = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(ORDER_URL, {
+          headers: {
+            Authorization: `Bearer ${auth.jwt}`,
+          },
+        });
+        setOrders(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        setErrorMessage("En feil har oppstått.");
+        setLoading(false);
+      }
+    };
 
-  fetchOrders();
+    fetchOrders();
+  }, []);
 
   return (
     <ModalContent w="sm">
       <ModalHeader color="secondary">Bestillinger ({orders.length})</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        {errorMessage && <ErrorMessage content={"En feil har oppstått."} />}
         <Flex direction={"column"}>
-          {orders.length < 1 ? (
-            <Text mb={2}>Ingen bestillinger</Text>
+          {orders.length < 1 && errorMessage === null && <Text mb={2}>Ingen bestillinger</Text>}
+          {loading ? (
+            <Spinner color="primary" size={"xl"} mx={"auto"} my={5} />
           ) : (
             orders.map((order) => {
               const published = new Date(order.attributes.publishedAt);
@@ -53,6 +60,7 @@ const OrdersModal = () => {
               );
             })
           )}
+          {errorMessage && <ErrorMessage content={errorMessage} />}
         </Flex>
       </ModalBody>
     </ModalContent>

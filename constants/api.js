@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:1337";
+const BASE_URL = "https://hms-tavle.herokuapp.com";
 
 export const FAQ_URL = BASE_URL + "/api/faqs/";
 export const EXAMPLES_URL = BASE_URL + "/api/eksempler/";

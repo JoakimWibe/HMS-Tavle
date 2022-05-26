@@ -1,5 +1,6 @@
-import { Divider, Flex, ModalBody, ModalCloseButton, ModalContent, ModalHeader, Text } from "@chakra-ui/react";
+import { Divider, Flex, ModalBody, ModalCloseButton, ModalContent, ModalHeader, Spinner, Text } from "@chakra-ui/react";
 import axios from "axios";
+import { useEffect } from "react";
 import { useState, useContext } from "react";
 import { CUSTOM_ORDER_URL } from "../../constants/api";
 import AuthContext from "../../context/AuthContext";
@@ -9,31 +10,38 @@ export const SpecialOrdersModal = () => {
   const [auth] = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const [specialOrders, setSpecialOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const fetchSpecialOrders = async () => {
-    try {
-      const response = await axios.get(CUSTOM_ORDER_URL, {
-        headers: {
-          Authorization: `Bearer ${auth.jwt}`,
-        },
-      });
-      setSpecialOrders(response.data.data);
-    } catch (error) {
-      setErrorMessage("En feil har oppstått.");
-    }
-  };
+  useEffect(() => {
+    const fetchSpecialOrders = async () => {
+      setLoading(true);
 
-  fetchSpecialOrders();
+      try {
+        const response = await axios.get(CUSTOM_ORDER_URL, {
+          headers: {
+            Authorization: `Bearer ${auth.jwt}`,
+          },
+        });
+        setSpecialOrders(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        setErrorMessage("En feil har oppstått.");
+        setLoading(false);
+      }
+    };
+
+    fetchSpecialOrders();
+  }, []);
 
   return (
     <ModalContent w="sm">
       <ModalHeader color="secondary">Spesial bestillinger ({specialOrders.length})</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        {errorMessage && <ErrorMessage content={"En feil har oppstått."} />}
         <Flex direction={"column"}>
-          {specialOrders.length < 1 ? (
-            <Text mb={2}>Ingen spesial bestillinger</Text>
+          {specialOrders.length < 1 && errorMessage === null && <Text mb={2}>Ingen spesial bestillinger</Text>}
+          {loading ? (
+            <Spinner color="primary" size={"xl"} mx={"auto"} my={5} />
           ) : (
             specialOrders.map((specialOrder) => {
               const published = new Date(specialOrder.attributes.publishedAt);
@@ -54,6 +62,7 @@ export const SpecialOrdersModal = () => {
               );
             })
           )}
+          {errorMessage && <ErrorMessage content={errorMessage} />}
         </Flex>
       </ModalBody>
     </ModalContent>

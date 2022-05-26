@@ -1,5 +1,6 @@
-import { ModalCloseButton, ModalContent, ModalHeader, ModalBody, Flex, Text, Divider, Button } from "@chakra-ui/react";
+import { ModalCloseButton, ModalContent, ModalHeader, ModalBody, Flex, Text, Divider, Button, Spinner } from "@chakra-ui/react";
 import axios from "axios";
+import { useEffect } from "react";
 import { useState, useContext } from "react";
 import { CONTACT_URL } from "../../constants/api";
 import AuthContext from "../../context/AuthContext";
@@ -9,32 +10,38 @@ const MessagesModal = () => {
   const [auth] = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const fetchMessages = async () => {
-    try {
-      const response = await axios.get(CONTACT_URL, {
-        headers: {
-          Authorization: `Bearer ${auth.jwt}`,
-        },
-      });
-      setMessages(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      setErrorMessage("En feil har oppstått.");
-    }
-  };
+  useEffect(() => {
+    const fetchMessages = async () => {
+      setLoading(true);
 
-  fetchMessages();
+      try {
+        const response = await axios.get(CONTACT_URL, {
+          headers: {
+            Authorization: `Bearer ${auth.jwt}`,
+          },
+        });
+        setMessages(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        setErrorMessage("En feil har oppstått.");
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, []);
 
   return (
     <ModalContent w="sm">
       <ModalHeader color="secondary">Meldinger ({messages.length})</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        {errorMessage && <ErrorMessage content={"En feil har oppstått."} />}
         <Flex direction={"column"}>
-          {messages.length < 1 ? (
-            <Text mb={2}>Ingen meldinger</Text>
+          {messages.length < 1 && errorMessage === null && <Text mb={2}>Ingen meldinger</Text>}
+          {loading ? (
+            <Spinner color="primary" size={"xl"} mx={"auto"} my={5} />
           ) : (
             messages.map((message) => {
               const published = new Date(message.attributes.publishedAt);
@@ -50,6 +57,7 @@ const MessagesModal = () => {
               );
             })
           )}
+          {errorMessage && <ErrorMessage content={errorMessage} />}
         </Flex>
       </ModalBody>
     </ModalContent>
