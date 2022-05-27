@@ -16,8 +16,17 @@ const Home = ({ examples, errorMessage }) => {
       <Flex minHeight={"100vh"} direction="column">
         <Banner />
 
-        <Flex h={600} mb={10} bg="gray.300" direction="column" justifyContent="center" alignItems="center">
-          <Heading textAlign="center" as="h1" color="text" mb={10}>
+        <Flex
+          backgroundImage="url('/_next/static/media/home-banner.3c7ffd5e.jpg')"
+          backgroundPosition="start"
+          backgroundRepeat="no-repeat"
+          h={600}
+          mb={10}
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Heading textAlign="center" as="h1" color="white" mb={10}>
             Norges ledende leverandør av HMS-tavler
           </Heading>
           <Flex mb={10} direction={{ sm: "column", md: "row" }}>
@@ -41,7 +50,7 @@ const Home = ({ examples, errorMessage }) => {
               </Button>
             </NextLink>
           </Flex>
-          <Flex direction="column" textAlign="center">
+          <Flex fontWeight={"bold"} fontSize={"xl"} color={"white"} direction="column" textAlign="center">
             <Text mb={3}>Kort leveringstid</Text>
             <Text mb={3}>Skreddersydde produkter</Text>
             <Text>Levering til hele Norge</Text>

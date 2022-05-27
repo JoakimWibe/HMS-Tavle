@@ -40,7 +40,7 @@ const Admin = () => {
               Admin
             </Heading>
 
-            <Text mb={{ sm: 2, md: 0 }} fontWeight={"bold"}>
+            <Text color={"text"} mb={{ sm: 2, md: 0 }} fontWeight={"bold"}>
               Logget inn som {user}
             </Text>
           </Flex>
