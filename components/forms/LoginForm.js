@@ -3,11 +3,10 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormError from "../common/FormError";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { LOGIN_URL } from "../../constants/api";
 import ErrorMessage from "../common/ErrorMessage";
-import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
@@ -60,11 +59,11 @@ const LoginForm = () => {
           {loginError && <ErrorMessage content={loginError} />}
           <fieldset disabled={fieldset}>
             <Box mb={3}>
-              <Input mb={2} placeholder="Email" type="email" {...register("email")} />
+              <Input borderColor={"primary"} mb={2} placeholder="Email" type="email" {...register("email")} />
               {errors.email && <FormError>{errors.email.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Input mb={2} {...register("password")} placeholder="Passord" type="password" />
+              <Input borderColor={"primary"} mb={2} {...register("password")} placeholder="Passord" type="password" />
               {errors.password && <FormError>{errors.password.message}</FormError>}
             </Box>
 

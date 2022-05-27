@@ -1,17 +1,4 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Button,
-  Divider,
-  Flex,
-  Heading,
-  Image,
-  Modal,
-  ModalOverlay,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading, Image, Modal, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
 import Banner from "../../components/Banner";
 import ErrorMessage from "../../components/common/ErrorMessage";
@@ -19,12 +6,10 @@ import PopularProductForm from "../../components/forms/PopularProductForm";
 import Head from "../../components/layout/Head";
 import Layout from "../../components/layout/Layout";
 import { PRODUCTS_URL } from "../../constants/api";
-import NextLink from "next/link";
-import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import PropTypes from "prop-types";
 
 const Bestselger = ({ popularProduct, errorMessage }) => {
   const id = popularProduct.id;
@@ -44,7 +29,7 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
     } else {
       setAuthorized(false);
     }
-  }, []);
+  }, [auth]);
 
   const deleteProduct = async () => {
     const url = PRODUCTS_URL + id;
@@ -70,20 +55,6 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
       <Banner />
 
       <Flex direction="column" maxWidth="2xl" mx="auto" px={10} mt={10}>
-        <Breadcrumb mb={5}>
-          <BreadcrumbItem>
-            <NextLink href="/bestselgere" passHref>
-              <BreadcrumbLink>Våre Bestselgere</BreadcrumbLink>
-            </NextLink>
-          </BreadcrumbItem>
-
-          <BreadcrumbItem isCurrentPage>
-            <NextLink href={`/bestselgere/${id}`} passHref>
-              <BreadcrumbLink>{name}</BreadcrumbLink>
-            </NextLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
-
         <Heading as="h1" color="secondary" mb={3}>
           {name}
         </Heading>
@@ -117,6 +88,11 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
 };
 
 export default Bestselger;
+
+Bestselger.propTypes = {
+  popularProduct: PropTypes.object.isRequired,
+  errorMessage: PropTypes.string,
+};
 
 export async function getStaticPaths() {
   try {

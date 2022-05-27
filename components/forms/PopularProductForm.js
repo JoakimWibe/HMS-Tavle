@@ -64,26 +64,26 @@ const PopularProductForm = ({ title }) => {
           {errorMessage && <ErrorMessage content={errorMessage} />}
           <fieldset disabled={true}>
             <Flex mb={5}>
-              <Input value={title} type="text" variant={"flushed"} {...register("product_title")} />
+              <Input borderColor={"primary"} value={title} type="text" variant={"flushed"} {...register("product_title")} />
             </Flex>
           </fieldset>
           <fieldset disabled={sending}>
             <Box mb={3}>
-              <Input mb={2} placeholder="Antall tavler" {...register("amount")} />
+              <Input borderColor={"primary"} mb={2} placeholder="Antall tavler" {...register("amount")} />
               {errors.amount && <FormError>{errors.amount.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Input mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
+              <Input borderColor={"primary"} mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
             </Box>
             <Box mb={3}>
               <Input mb={2} placeholder="Firma/organisasjon (valgfri)" type="text" {...register("company")} />
             </Box>
             <Box mb={3}>
-              <Input mb={2} placeholder="Epost" type="email" {...register("email")} />
+              <Input borderColor={"primary"} mb={2} placeholder="Epost" type="email" {...register("email")} />
               {errors.email && <FormError>{errors.email.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Textarea mb={2} placeholder="Kommentar til din forespørsel (valgfri)" type="text" {...register("comment")} />
+              <Textarea borderColor={"primary"} mb={2} placeholder="Kommentar til din forespørsel (valgfri)" type="text" {...register("comment")} />
             </Box>
 
             <Button

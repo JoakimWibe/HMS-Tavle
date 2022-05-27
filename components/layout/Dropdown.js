@@ -1,9 +1,7 @@
 import { Box, Button, Link, Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import ContactForm from "../forms/ContactForm";
 
@@ -17,7 +15,7 @@ export const Dropdown = () => {
     if (auth) {
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [auth]);
 
   return (
     <>

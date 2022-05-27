@@ -1,4 +1,5 @@
 import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
 const ErrorMessage = ({ content }) => {
   return (
@@ -10,3 +11,7 @@ const ErrorMessage = ({ content }) => {
 };
 
 export default ErrorMessage;
+
+ErrorMessage.propTypes = {
+  content: PropTypes.string.isRequired,
+};

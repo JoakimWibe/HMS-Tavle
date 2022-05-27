@@ -1,5 +1,6 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import Image from "next/image";
+import PropTypes from "prop-types";
 
 const ProductExample = ({ productExamples }) => {
   return (
@@ -16,3 +17,7 @@ const ProductExample = ({ productExamples }) => {
 };
 
 export default ProductExample;
+
+ProductExample.propTypes = {
+  productExamples: PropTypes.array.isRequired,
+};

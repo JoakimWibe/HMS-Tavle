@@ -2,9 +2,7 @@ import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, IconButton, Image, Link, Modal, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useContext } from "react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import Logo from "../../public/assets/logo.png";
 import ContactForm from "../forms/ContactForm";
@@ -25,10 +23,10 @@ const Navbar = () => {
     if (auth) {
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [auth]);
 
   return (
-    <Box position="fixed" w="100%" bg="white" zIndex={1}>
+    <Box position="fixed" w="100%" bg="white" zIndex={1} boxShadow={"md"}>
       <Flex
         direction={{ lg: "row", md: "column", sm: "row" }}
         h={{ lg: 20, md: 32, sm: 20 }}

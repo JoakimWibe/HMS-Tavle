@@ -1,7 +1,6 @@
 import { Divider, Flex, ModalBody, ModalCloseButton, ModalContent, ModalHeader, Spinner, Text } from "@chakra-ui/react";
 import axios from "axios";
-import { useEffect } from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { CUSTOM_ORDER_URL } from "../../constants/api";
 import AuthContext from "../../context/AuthContext";
 import ErrorMessage from "../common/ErrorMessage";
@@ -31,7 +30,7 @@ export const SpecialOrdersModal = () => {
     };
 
     fetchSpecialOrders();
-  }, []);
+  }, [auth.jwt]);
 
   return (
     <ModalContent w="sm">

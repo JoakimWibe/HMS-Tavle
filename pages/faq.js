@@ -5,8 +5,9 @@ import ErrorMessage from "../components/common/ErrorMessage";
 import Head from "../components/layout/Head";
 import Layout from "../components/layout/Layout";
 import { FAQ_URL } from "../constants/api";
+import PropTypes from "prop-types";
 
-const Faq = (props) => {
+const Faq = ({ faqs, errorMessage }) => {
   return (
     <Layout>
       <Head title="Ofte stilte spørsmål" description="Noen av de vanligste spørsmålene kunder har" />
@@ -25,11 +26,11 @@ const Faq = (props) => {
 
           <Divider mb={10} borderColor="secondary" />
 
-          {props.errorMessage ? (
-            <ErrorMessage content={props.errorMessage} />
+          {errorMessage ? (
+            <ErrorMessage content={errorMessage} />
           ) : (
             <Flex direction="column">
-              {props.faqs.map((faq) => {
+              {faqs.map((faq) => {
                 const question = faq.attributes.question;
                 const answer = faq.attributes.answer;
                 const id = faq.id;
@@ -52,6 +53,11 @@ const Faq = (props) => {
 };
 
 export default Faq;
+
+Faq.propTypes = {
+  faqs: PropTypes.array.isRequired,
+  errorMessage: PropTypes.string,
+};
 
 export async function getStaticProps() {
   let faqs = [];

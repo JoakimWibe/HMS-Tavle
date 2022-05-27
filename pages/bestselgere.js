@@ -1,16 +1,16 @@
 import { Search2Icon } from "@chakra-ui/icons";
 import { Divider, Flex, Heading, IconButton, Input, InputGroup, Text } from "@chakra-ui/react";
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import ErrorMessage from "../components/common/ErrorMessage";
 import Head from "../components/layout/Head";
 import Layout from "../components/layout/Layout";
 import PopularProducts from "../components/products/PopularProducts";
 import { PRODUCTS_URL } from "../constants/api";
+import PropTypes from "prop-types";
 
-const Bestselgere = (props) => {
+const Bestselgere = ({ products, errorMessage }) => {
   const [inputValue, setInputValue] = useState("");
   const [noResults, setNoResults] = useState(false);
 
@@ -19,7 +19,7 @@ const Bestselgere = (props) => {
     setInputValue(lowerCase);
   };
 
-  const filteredProducts = props.products.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     if (inputValue === "") {
       return product;
     } else {
@@ -33,7 +33,7 @@ const Bestselgere = (props) => {
     } else {
       setNoResults(false);
     }
-  });
+  }, [filteredProducts]);
 
   return (
     <Layout>
@@ -58,11 +58,7 @@ const Bestselgere = (props) => {
 
           <Divider mb={10} borderColor="secondary" />
 
-          {props.errorMessage ? (
-            <ErrorMessage content={props.errorMessage} />
-          ) : (
-            <PopularProducts resultsMessage={noResults} popularProducts={filteredProducts} />
-          )}
+          {errorMessage ? <ErrorMessage content={errorMessage} /> : <PopularProducts resultsMessage={noResults} popularProducts={filteredProducts} />}
         </Flex>
       </Flex>
     </Layout>
@@ -70,6 +66,11 @@ const Bestselgere = (props) => {
 };
 
 export default Bestselgere;
+
+Bestselgere.propTypes = {
+  products: PropTypes.array.isRequired,
+  errorMessage: PropTypes.string,
+};
 
 export async function getStaticProps() {
   let products = [];

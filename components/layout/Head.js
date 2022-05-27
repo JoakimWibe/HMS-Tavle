@@ -1,4 +1,5 @@
 import NextHead from "next/head";
+import PropTypes from "prop-types";
 
 const Head = ({ title = "", description }) => {
   return (
@@ -13,3 +14,8 @@ const Head = ({ title = "", description }) => {
 };
 
 export default Head;
+
+Head.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};

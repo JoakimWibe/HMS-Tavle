@@ -1,5 +1,6 @@
 import { Box, Image, Button, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
+import PropTypes from "prop-types";
 
 const PopularProducts = ({ popularProducts, resultsMessage }) => {
   return (
@@ -46,3 +47,8 @@ const PopularProducts = ({ popularProducts, resultsMessage }) => {
 };
 
 export default PopularProducts;
+
+PopularProducts.propTypes = {
+  popularProducts: PropTypes.array.isRequired,
+  resultsMessage: PropTypes.bool.isRequired,
+};

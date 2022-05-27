@@ -7,11 +7,12 @@ import { InfoIcon } from "@chakra-ui/icons";
 import { EXAMPLES_URL } from "../constants/api";
 import axios from "axios";
 import ProductExample from "../components/products/ProductExamples";
+import PropTypes from "prop-types";
 
-const Home = (props) => {
+const Home = ({ examples, errorMessage }) => {
   return (
     <Layout>
-      <Head description="Hjemmeside for HMS-tavle" />
+      <Head title="" description="Hjemmeside for HMS-tavle" />
       <Flex minHeight={"100vh"} direction="column">
         <Banner />
 
@@ -53,7 +54,7 @@ const Home = (props) => {
           </Heading>
           <Text mb={3}>
             Vi har over 10 års erfaring med levering av skreddersydde HMS-tavler, SHA-tavler, HMS-stasjoner, prosjekttavler, LEAN-tavler og lignende
-            produkter. Her er ett lite utvalg. ​​ Klikk på bildene for større versjoner.
+            produkter. Her er ett lite utvalg.
           </Text>
           <NextLink href="/faq" passHref>
             <Flex mb={5} w={48} color="primary" alignItems="center" cursor="pointer">
@@ -61,13 +62,13 @@ const Home = (props) => {
             </Flex>
           </NextLink>
 
-          {props.errorMessage ? (
+          {errorMessage ? (
             <Alert status="error" mb={10}>
               <AlertIcon />
-              <AlertTitle>{props.errorMessage}</AlertTitle>
+              <AlertTitle>{errorMessage}</AlertTitle>
             </Alert>
           ) : (
-            <ProductExample productExamples={props.examples} />
+            <ProductExample productExamples={examples} />
           )}
         </Flex>
       </Flex>
@@ -76,6 +77,11 @@ const Home = (props) => {
 };
 
 export default Home;
+
+Home.propTypes = {
+  examples: PropTypes.array.isRequired,
+  errorMessage: PropTypes.string,
+};
 
 export async function getStaticProps() {
   let examples = [];

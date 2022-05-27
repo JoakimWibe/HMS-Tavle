@@ -1,10 +1,10 @@
 import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useContext } from "react";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../../context/AuthContext";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import PropTypes from "prop-types";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     if (router.pathname == "/admin" && !auth) router.push("/");
-  }, []);
+  }, [auth, router]);
 
   return (
     <>
@@ -30,3 +30,7 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};

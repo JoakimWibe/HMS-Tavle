@@ -1,8 +1,6 @@
 import { Button, Divider, Flex, Heading, Modal, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import MessagesModal from "../components/admin/MessagesModal";
 import OrdersModal from "../components/admin/OrdersModal";
 import { SpecialOrdersModal } from "../components/admin/SpecialOrdersModal";
@@ -24,7 +22,7 @@ const Admin = () => {
     if (auth) {
       setUser(auth.user.email);
     }
-  }, []);
+  }, [auth]);
 
   const logOut = () => {
     setAuth(null);
@@ -49,9 +47,13 @@ const Admin = () => {
 
           <Divider mb={5} borderColor="secondary" />
 
-          <Flex direction={{ sm: "column", md: "row" }} justifyContent={{ sm: "center", md: "space-between" }}>
+          <Flex
+            direction={{ sm: "column", md: "row" }}
+            justifyContent={{ sm: "center", md: "space-between" }}
+            alignItems={{ sm: "center", md: "start" }}
+          >
             <AddProductForm />
-            <Flex direction={"column"} mt={{ sm: 10, md: 0 }} justifyContent={"center"}>
+            <Flex direction={"column"} mt={{ sm: 10, md: 0 }} mb={10} justifyContent={"center"} width={{ sm: "100%", md: 52 }}>
               <Button onClick={onMessagesOpen} mb={5} borderRadius="full" color={"white"} bg="primary" variant="filled" _hover={{ bg: "secondary" }}>
                 Meldinger
               </Button>

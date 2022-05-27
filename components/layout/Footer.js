@@ -3,9 +3,7 @@ import { Box, Button, Flex, Link, Modal, ModalOverlay, Text, useDisclosure } fro
 import LoginForm from "../forms/LoginForm";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 
 const Footer = () => {
@@ -19,7 +17,7 @@ const Footer = () => {
     if (auth) {
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [auth]);
 
   const logOut = () => {
     setAuth(null);
