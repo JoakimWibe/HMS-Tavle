@@ -1,4 +1,4 @@
-const BASE_URL = "https://hms-tavle.herokuapp.com";
+const BASE_URL = process.env.BASE_URL;
 
 export const FAQ_URL = BASE_URL + "/api/faqs/";
 export const EXAMPLES_URL = BASE_URL + "/api/eksempler/";
