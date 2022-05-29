@@ -26,7 +26,7 @@ const Home = ({ examples, errorMessage }) => {
           direction="column"
           justifyContent="center"
           alignItems="center"
-          px={10}
+          px={5}
         >
           <Heading textAlign="center" as="h2" color="white" mb={10}>
             Norges ledende leverandør av HMS-tavler
@@ -62,7 +62,7 @@ const Home = ({ examples, errorMessage }) => {
           </Flex>
         </Flex>
 
-        <Flex direction="column" w={{ sm: "100%", md: "80%", lg: "60%", xl: "40%" }} px={{ md: 0, sm: 10 }} mx="auto">
+        <Flex direction="column" w={{ sm: "100%", md: "80%", lg: "60%", xl: "40%" }} px={{ md: 0, sm: 5 }} mx="auto">
           <Heading mb={3} fontSize="2xl" as="h3">
             Eksempler på våre tavler
           </Heading>

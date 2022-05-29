@@ -54,7 +54,7 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
 
       <Banner />
 
-      <Flex direction="column" maxWidth="2xl" mx="auto" px={10} mt={10}>
+      <Flex direction="column" maxWidth="2xl" mx="auto" px={5} mt={10}>
         <Heading as="h2" color="secondary" mb={3}>
           {name}
         </Heading>
@@ -65,7 +65,7 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
           <ErrorMessage content={errorMessage} />
         ) : (
           <Flex mb={20} direction={"column"}>
-            <Image src={imageUrl} alt={imageAltText} border={"1px"} p={5} rounded={"sm"} />
+            <Image loading="lazy" src={imageUrl} alt={imageAltText} border={"1px"} p={5} rounded={"sm"} />
             <Text my={5}>{description}</Text>
             <Button borderRadius="full" h={12} onClick={onOpen} bg="primary" color="white" _hover={{ bg: "secondary" }}>
               Kontakt for forespørsel

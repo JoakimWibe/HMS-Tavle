@@ -41,7 +41,7 @@ const Bestselgere = ({ products, errorMessage }) => {
       <Flex minHeight={"100vh"} direction="column">
         <Banner />
 
-        <Flex direction="column" maxWidth="2xl" mx="auto" px={10} mt={10}>
+        <Flex direction="column" maxWidth="2xl" mx="auto" px={5} mt={10}>
           <Heading as="h2" color="secondary" mb={3}>
             Våre Bestselgere
           </Heading>

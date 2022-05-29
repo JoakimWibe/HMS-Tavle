@@ -34,7 +34,7 @@ const Admin = () => {
     <Layout>
       <Head title="Admin" description="Admin side for HMS-tavle" />
       <Flex minHeight={"100vh"}>
-        <Flex direction="column" width="2xl" mx="auto" px={10} mt={10}>
+        <Flex direction="column" width="2xl" mx="auto" px={5} mt={10}>
           <Flex direction={{ sm: "column", md: "row" }} alignItems={{ sm: "start", md: "center" }} justifyContent={"space-between"}>
             <Heading mb={{ sm: 2, md: 0 }} as="h1" color="secondary">
               Admin
