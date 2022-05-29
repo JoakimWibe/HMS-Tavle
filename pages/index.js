@@ -26,6 +26,7 @@ const Home = ({ examples, errorMessage }) => {
           direction="column"
           justifyContent="center"
           alignItems="center"
+          px={10}
         >
           <Heading textAlign="center" as="h2" color="white" mb={10}>
             Norges ledende leverandør av HMS-tavler
