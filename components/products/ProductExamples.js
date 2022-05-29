@@ -1,5 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
-import Image from "next/image";
+import { SimpleGrid, Image } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
 const ProductExample = ({ productExamples }) => {
