@@ -55,7 +55,7 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
       <Banner />
 
       <Flex direction="column" maxWidth="2xl" mx="auto" px={10} mt={10}>
-        <Heading as="h1" color="secondary" mb={3}>
+        <Heading as="h2" color="secondary" mb={3}>
           {name}
         </Heading>
 

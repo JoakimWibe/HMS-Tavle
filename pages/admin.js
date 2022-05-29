@@ -53,13 +53,16 @@ const Admin = () => {
             alignItems={{ sm: "center", md: "start" }}
           >
             <AddProductForm />
+
             <Flex direction={"column"} mt={{ sm: 10, md: 0 }} mb={10} justifyContent={"center"} width={{ sm: "100%", md: 52 }}>
               <Button onClick={onMessagesOpen} mb={5} borderRadius="full" color={"white"} bg="primary" variant="filled" _hover={{ bg: "secondary" }}>
                 Meldinger
               </Button>
+
               <Button onClick={onOrdersOpen} mb={5} borderRadius="full" color={"white"} bg="primary" variant="filled" _hover={{ bg: "secondary" }}>
                 Bestillinger
               </Button>
+
               <Button
                 onClick={onSpecialOrdersOpen}
                 mb={5}
@@ -71,6 +74,7 @@ const Admin = () => {
               >
                 Spesial bestillinger
               </Button>
+
               <Button onClick={logOut} borderRadius="full" bg="white" color="primary" border="2px" borderColor="primary">
                 Logg ut
               </Button>

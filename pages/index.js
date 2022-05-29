@@ -8,6 +8,7 @@ import { EXAMPLES_URL } from "../constants/api";
 import axios from "axios";
 import ProductExample from "../components/products/ProductExamples";
 import PropTypes from "prop-types";
+import HomeBanner from "../public/assets/home-banner.jpg";
 
 const Home = ({ examples, errorMessage }) => {
   return (
@@ -17,7 +18,7 @@ const Home = ({ examples, errorMessage }) => {
         <Banner />
 
         <Flex
-          backgroundImage="url('/_next/static/media/home-banner.3c7ffd5e.jpg')"
+          backgroundImage={`url('${HomeBanner.src}')`}
           backgroundPosition="start"
           backgroundRepeat="no-repeat"
           h={600}
@@ -26,9 +27,10 @@ const Home = ({ examples, errorMessage }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Heading textAlign="center" as="h1" color="white" mb={10}>
+          <Heading textAlign="center" as="h2" color="white" mb={10}>
             Norges ledende leverandør av HMS-tavler
           </Heading>
+
           <Flex mb={10} direction={{ sm: "column", md: "row" }}>
             <NextLink href="/bygg-hms" passHref>
               <Button
@@ -44,12 +46,14 @@ const Home = ({ examples, errorMessage }) => {
                 Bygg din egen HMS-tavle
               </Button>
             </NextLink>
+
             <NextLink href="/bestselgere" passHref>
               <Button py={6} borderRadius="full" w={52} bg="white" color="primary" border="2px" borderColor="primary">
                 Våre bestselgere
               </Button>
             </NextLink>
           </Flex>
+
           <Flex fontWeight={"bold"} fontSize={"xl"} color={"white"} direction="column" textAlign="center">
             <Text mb={3}>Kort leveringstid</Text>
             <Text mb={3}>Skreddersydde produkter</Text>
@@ -61,10 +65,12 @@ const Home = ({ examples, errorMessage }) => {
           <Heading mb={3} fontSize="2xl" as="h3">
             Eksempler på våre tavler
           </Heading>
+
           <Text mb={3}>
             Vi har over 10 års erfaring med levering av skreddersydde HMS-tavler, SHA-tavler, HMS-stasjoner, prosjekttavler, LEAN-tavler og lignende
             produkter. Her er ett lite utvalg.
           </Text>
+
           <NextLink href="/faq" passHref>
             <Flex mb={5} w={48} color="primary" alignItems="center" cursor="pointer">
               Ofte stilte spørsmål <InfoIcon ml={2} />

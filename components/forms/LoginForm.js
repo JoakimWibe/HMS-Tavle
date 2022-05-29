@@ -59,11 +59,18 @@ const LoginForm = () => {
           {loginError && <ErrorMessage content={loginError} />}
           <fieldset disabled={fieldset}>
             <Box mb={3}>
-              <Input borderColor={"primary"} mb={2} placeholder="Email" type="email" {...register("email")} />
+              <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Email" type="email" {...register("email")} />
               {errors.email && <FormError>{errors.email.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Input borderColor={"primary"} mb={2} {...register("password")} placeholder="Passord" type="password" />
+              <Input
+                _placeholder={{ color: "text" }}
+                borderColor={"primary"}
+                mb={2}
+                {...register("password")}
+                placeholder="Passord"
+                type="password"
+              />
               {errors.password && <FormError>{errors.password.message}</FormError>}
             </Box>
 

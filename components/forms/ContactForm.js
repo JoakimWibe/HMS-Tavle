@@ -12,7 +12,12 @@ import ErrorMessage from "../common/ErrorMessage";
 const schema = yup.object().shape({
   name: yup.string().required("Navn er obligatorisk"),
   email: yup.string().required("Epost er obligatorisk").email("Skriv inn en gylding epost adresse"),
-  phone: yup.number().typeError("Vennligst skriv et gyldig nummer"),
+  phone: yup
+    .string()
+    .required("Telefon er obligatorisk")
+    .matches(/^[0-9]+$/, "Må være et nummer")
+    .min(5, "Må inneholde 8 siffre")
+    .max(12, "Kan ikke inneholde mer enn 12 sifre"),
   message: yup.string().required("Meldingsfeltet er tomt"),
 });
 
@@ -60,19 +65,19 @@ const ContactForm = () => {
           {errorMessage && <ErrorMessage content={errorMessage} />}
           <fieldset disabled={sending}>
             <Box mb={3}>
-              <Input borderColor={"primary"} mb={2} placeholder="Navn" type="text" {...register("name")} />
+              <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Navn" type="text" {...register("name")} />
               {errors.name && <FormError>{errors.name.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Input borderColor={"primary"} mb={2} placeholder="Email" type="email" {...register("email")} />
+              <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Email" type="email" {...register("email")} />
               {errors.email && <FormError>{errors.email.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Input borderColor={"primary"} mb={2} placeholder="Telefon" {...register("phone")} />
+              <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Telefon" {...register("phone")} />
               {errors.phone && <FormError>{errors.phone.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Textarea borderColor={"primary"} mb={2} placeholder="Melding" type="text" {...register("message")} />
+              <Textarea _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Melding" type="text" {...register("message")} />
               {errors.message && <FormError>{errors.message.message}</FormError>}
             </Box>
 

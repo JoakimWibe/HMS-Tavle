@@ -69,21 +69,35 @@ const PopularProductForm = ({ title }) => {
           </fieldset>
           <fieldset disabled={sending}>
             <Box mb={3}>
-              <Input borderColor={"primary"} mb={2} placeholder="Antall tavler" {...register("amount")} />
+              <Input borderColor={"primary"} _placeholder={{ color: "text" }} mb={2} placeholder="Antall tavler" {...register("amount")} />
               {errors.amount && <FormError>{errors.amount.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Input borderColor={"primary"} mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
+              <Input borderColor={"primary"} mb={2} placeholder="Navn (valgfri)" _placeholder={{ color: "text" }} type="text" {...register("name")} />
             </Box>
             <Box mb={3}>
-              <Input mb={2} placeholder="Firma/organisasjon (valgfri)" type="text" {...register("company")} />
+              <Input
+                borderColor={"primary"}
+                mb={2}
+                placeholder="Firma/organisasjon (valgfri)"
+                _placeholder={{ color: "text" }}
+                type="text"
+                {...register("company")}
+              />
             </Box>
             <Box mb={3}>
-              <Input borderColor={"primary"} mb={2} placeholder="Epost" type="email" {...register("email")} />
+              <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Epost" type="email" {...register("email")} />
               {errors.email && <FormError>{errors.email.message}</FormError>}
             </Box>
             <Box mb={3}>
-              <Textarea borderColor={"primary"} mb={2} placeholder="Kommentar til din forespørsel (valgfri)" type="text" {...register("comment")} />
+              <Textarea
+                _placeholder={{ color: "text" }}
+                borderColor={"primary"}
+                mb={2}
+                placeholder="Kommentar til din forespørsel (valgfri)"
+                type="text"
+                {...register("comment")}
+              />
             </Box>
 
             <Button

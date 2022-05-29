@@ -74,19 +74,33 @@ const AddProductForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <fieldset disabled={sending}>
           <Box mb={3}>
-            <Input borderColor={"primary"} mb={2} placeholder="Navn" type="text" {...register("name")} />
+            <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Navn" type="text" {...register("name")} />
             {errors.name && <FormError>{errors.name.message}</FormError>}
           </Box>
           <Box mb={3}>
-            <Textarea borderColor={"primary"} mb={2} placeholder="Beskrivelse" type="text" {...register("description")} />
+            <Textarea
+              _placeholder={{ color: "text" }}
+              borderColor={"primary"}
+              mb={2}
+              placeholder="Beskrivelse"
+              type="text"
+              {...register("description")}
+            />
             {errors.description && <FormError>{errors.description.message}</FormError>}
           </Box>
           <Box mb={3}>
-            <Input borderColor={"primary"} mb={2} placeholder="Bilde URL" type="text" {...register("image_url")} />
+            <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Bilde URL" type="text" {...register("image_url")} />
             {errors.image_url && <FormError>{errors.image_url.message}</FormError>}
           </Box>
           <Box mb={3}>
-            <Input borderColor={"primary"} mb={2} placeholder="Alt text" type="text" {...register("image_alt_text")} />
+            <Input
+              _placeholder={{ color: "text" }}
+              borderColor={"primary"}
+              mb={2}
+              placeholder="Alt text"
+              type="text"
+              {...register("image_alt_text")}
+            />
             {errors.image_alt_text && <FormError>{errors.image_alt_text.message}</FormError>}
           </Box>
 

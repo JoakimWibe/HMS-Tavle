@@ -127,20 +127,34 @@ const CustomOrderForm = () => {
           </Box>
 
           <Box mb={3} mt={10}>
-            <Input borderColor={"primary"} mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
+            <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Navn (valgfri)" type="text" {...register("name")} />
           </Box>
 
           <Box mb={3}>
-            <Input borderColor={"primary"} mb={2} placeholder="Firma (valgfri)" type="text" {...register("company")} />
+            <Input
+              _placeholder={{ color: "text" }}
+              borderColor={"primary"}
+              mb={2}
+              placeholder="Firma (valgfri)"
+              type="text"
+              {...register("company")}
+            />
           </Box>
 
           <Box mb={3}>
-            <Input borderColor={"primary"} mb={2} placeholder="Epost" type="email" {...register("email")} />
+            <Input _placeholder={{ color: "text" }} borderColor={"primary"} mb={2} placeholder="Epost" type="email" {...register("email")} />
             {errors.email && <FormError>{errors.email.message}</FormError>}
           </Box>
 
           <Box mb={3}>
-            <Textarea borderColor={"primary"} mb={2} placeholder="Kommentar (valgfri)" type="text" {...register("comment")} />
+            <Textarea
+              _placeholder={{ color: "text" }}
+              borderColor={"primary"}
+              mb={2}
+              placeholder="Kommentar (valgfri)"
+              type="text"
+              {...register("comment")}
+            />
           </Box>
 
           <Button

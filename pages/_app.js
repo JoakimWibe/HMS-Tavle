@@ -21,7 +21,7 @@ const customTheme = extendTheme({
       success: "green.500",
       primary: "#4464A2",
       secondary: "#2A3D63",
-      text: "gray.700",
+      text: "gray.900",
     },
     fonts: {
       heading: "Karla, sans-serif",
