@@ -1,11 +1,6 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { AuthProvider } from "../context/AuthContext";
 
-import "@fontsource/Karla/700.css";
-import "@fontsource/Karla/400.css";
-import "@fontsource/Lato/700.css";
-import "@fontsource/Lato/400.css";
-
 const breakpoints = {
   sm: "320px",
   md: "800px",
