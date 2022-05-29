@@ -23,7 +23,7 @@ const Footer = () => {
     setAuth(null);
     window.localStorage.clear();
     setIsLoggedIn(false);
-    router.push("/");
+    router.push(router.pathname);
   };
 
   return (

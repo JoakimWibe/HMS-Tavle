@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Heading, Image, Modal, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Heading, Image, Modal, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import axios from "axios";
 import Banner from "../../components/Banner";
 import ErrorMessage from "../../components/common/ErrorMessage";
@@ -10,6 +10,7 @@ import AuthContext from "../../context/AuthContext";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
+import EditProductForm from "../../components/forms/EditProductForm";
 
 const Bestselger = ({ popularProduct, errorMessage }) => {
   const id = popularProduct.id;
@@ -18,7 +19,8 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
   const imageUrl = popularProduct.attributes.image_url;
   const imageAltText = popularProduct.attributes.image_alt_text;
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { isOpen: isContactOpen, onOpen: onContactOpen, onClose: onContactClose } = useDisclosure();
+  const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
   const router = useRouter();
   const [auth] = useContext(AuthContext);
   const [authorized, setAuthorized] = useState(false);
@@ -67,21 +69,31 @@ const Bestselger = ({ popularProduct, errorMessage }) => {
           <Flex mb={20} direction={"column"}>
             <Image loading="lazy" src={imageUrl} alt={imageAltText} border={"1px"} p={5} rounded={"sm"} />
             <Text my={5}>{description}</Text>
-            <Button borderRadius="full" h={12} onClick={onOpen} bg="primary" color="white" _hover={{ bg: "secondary" }}>
+            <Button borderRadius="full" h={12} onClick={onContactOpen} bg="primary" color="white" _hover={{ bg: "secondary" }}>
               Kontakt for forespørsel
             </Button>
             {authorized && (
-              <Button mt={5} onClick={deleteProduct} borderRadius="full" h={12} bg="white" color="primary" border={"2px"}>
-                Slett produkt
-              </Button>
+              <Flex direction={"column"}>
+                <Button mt={5} onClick={deleteProduct} borderRadius="full" h={12} bg="white" color="primary" border={"2px"}>
+                  Slett produkt
+                </Button>
+                <Button onClick={onEditOpen} mt={5} borderRadius="full" h={12} bg="white" color="primary" border={"2px"}>
+                  Rediger produkt
+                </Button>
+              </Flex>
             )}
           </Flex>
         )}
       </Flex>
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal onClose={onContactClose} isOpen={isContactOpen} isCentered>
         <ModalOverlay />
         <PopularProductForm title={name} />
+      </Modal>
+
+      <Modal onClose={onEditClose} isOpen={isEditOpen} isCentered>
+        <ModalOverlay />
+        <EditProductForm title={name} description={description} imageUrl={imageUrl} imageAltText={imageAltText} id={id} />
       </Modal>
     </Layout>
   );
