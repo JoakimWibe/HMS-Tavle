@@ -8,6 +8,7 @@ import ErrorMessage from "../common/ErrorMessage";
 import { ORDER_URL } from "../../constants/api";
 import { useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const schema = yup.object().shape({
   email: yup.string().required("Epost er obligatorisk").email("Skriv inn en gylding epost adresse"),
@@ -118,6 +119,10 @@ const PopularProductForm = ({ title }) => {
       </ModalBody>
     </ModalContent>
   );
+};
+
+PopularProductForm.propTypes = {
+  title: PropTypes.string.isRequired,
 };
 
 export default PopularProductForm;
