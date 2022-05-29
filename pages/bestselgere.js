@@ -72,7 +72,7 @@ Bestselgere.propTypes = {
   errorMessage: PropTypes.string,
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let products = [];
   let errorMessage = null;
 
