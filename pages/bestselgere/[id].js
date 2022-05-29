@@ -106,23 +106,8 @@ Bestselger.propTypes = {
   errorMessage: PropTypes.string,
 };
 
-export async function getStaticPaths() {
-  try {
-    const response = await axios.get(PRODUCTS_URL);
-    const popularProducts = response.data.data;
-
-    const paths = popularProducts.map((popularProduct) => ({
-      params: { id: popularProduct.id.toString() },
-    }));
-
-    return { paths: paths, fallback: false };
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function getStaticProps({ params }) {
-  const url = `${PRODUCTS_URL}${params.id}`;
+export async function getServerSideProps({ context }) {
+  const url = `${PRODUCTS_URL}${context.params.id}`;
 
   let popularProduct = null;
   let errorMessage = null;
