@@ -1,109 +1,67 @@
-# Project Exam 2
-There are two options with this Project Exam. 
-You need to only choose one and please follow the deliveries carefully.
+# Project Exam
 
-## Goal
-To take the skills learned over the last two years and take on an extensive project where the finished product should reflect the candidate's general development capabilities, in addition to visual and technical skills.
+![image](/public/assets/project-exam.jpg)
 
-## Brief
-For this assignment you have the choice between getting a real world client that you will manage and build a website for, or a case study to make a hotel booking website.
+Website for a company called HMS-Tavle that sells whiteboards and other EHS related products. The website has a visitor side for customers, and an admin side that can be logged in to.
 
-Whatever project you choose, the final submission must have the following:
-- A Gantt chart planning the project
-- A style guide
-- An Adobe XD prototype
-- Use a CSS Pre-processor and BEM if not using CSS Modules, Styled Components, etc
-- Use a React.js or Next.js
-- You can use regular JS or TypeScript
-- Please use create-react-app or create-next-app to generate a skeleton project for yourself
-- A fully working website that fulfils the brief
+## Description
 
-## Option 1: Real World Client
-Make a website or application for a real world client. The project should offer a significant enough scope to be able to show off your skills as a developer, and hopefully the project can form a central part of your portfolio for when you start applying for jobs.
+HMS-Tavle is a company that sells whiteboards and other EHS related products. The website has a visitor side where the user can read about the company, place orders on different products and also get in touch with the company.
 
-The process followed for the project will differ depending on the client and the requirements of their project.
+The website also has an admin side where the user can log in and add/edit/delete products, and view orders and messages from customers.
 
-Note: The project has to have a big enough scope to show off the skills learned over your studies. An example of the level we’re expecting would be a website where administrators can add, update, remove products, and users can search, filter, and contact administrators. If you are unsure if your potential client’s brief is strong enough for the Project Exam 2, please message your tutors. Use of a JavaScript Framework is a requirement.
+All data is managed in a Strapi API.
 
-If you do a Real World Client, your project will need to have the following:
+## Built With
 
-### Visitor side:
-- Home page
-- Search bar typeahead (auto dropdown to match the products or services the real world client has)
-- A list of products or services either on the home page or a dedicated page
-- A specific page for a product or service
-- A contact form that sends a message and which can be viewed on the admin side. This can be a modal or a page.
-- An enquiry page, either as a modal or separate page
+- [Next.js](https://nextjs.org/)
+- [Chakra UI](https://chakra-ui.com/)
+- [Strapi](https://strapi.io/)
 
-### Admin side:
-- Login section that makes use of JWT tokens
-- List of enquiries and new enquiries appear when user submits the form on the enquiry page
-- List of messages from the contact form
-- The admin can create a new product/service
+## Getting Started
 
+### Installing
 
-### Recommended Process
-Week 1 to 3:  Finding client, Planning and Design
-Week 4 to 6: Coding
-Week 7: Bug Fixing
+This is where you list how to get the project started. It typically just includes telling a person to clone the repo and then to install the dependencies e.g.
 
-### Level 1 Process
-- Use your networks and connections to find a client that needs a website or application built.
-- Understand their requirements and come up with a functional specification for the project. You can write the functional specification using “System shall” statements. For example, “The system shall allow visitors to search for an article”
-- Create a Gantt chart for the project, planning out your deliverables for the client.
-- Make a design style guide and then take this style guide and create an Adobe XD prototype. Present to the client for feedback.
-- Develop the site ensuring you deliver all that is listed in your functional specification.
-- Test the website on various platforms and browsers. Ensure the site is bug-free and working before presenting to the client.
-- Go through a final round of changes before going live with the website.
-- Write a report on your process and decisions for the project. Please use the report template provided.
+1. Clone the repo:
 
-### Submission
-End of week 3: Functional specification, Gantt chart, style guide, and Adobe XD prototype
-End of week 7: Report with link to website, and all files in a compressed ZIP
+```bash
+git clone git@github.com:NoroffFEU/portfolio-1-example.git
+```
 
-## Option 2: Hotel Booking Website
-A local tourism agency in Bergen is launching a new website called ‘Holidaze’ for visitors to the area to be able to find hotels, B&Bs and guesthouses, and for the accommodation owners to receive enquiries.
+2. Install the dependencies:
 
-The project requires you to create the visitor side of the website where users can search accommodation and make enquiries, as well as the administration side where properties can be added and enquiries managed.
+```
+npm install
+```
 
-You will need to create an API to store the data for the establishments, enquiries and contact submissions. You can choose to use WordPress or Strapi as a Headless CMS, but it is very important that the API is deployed and publicly available. Please do not submit any files for your API. Only submit the website you have created. 
+### Running
 
-## Requirements for the Website
+Here is where you detail how to run the app. It typically involves the commands you'd need to run to start the project e.g.
 
-### Visitor Side
-- Homepage
-- Search bar typeahead (auto dropdown with hotel names that match what has been typed)
-- A results page with all hotels
-- The hotel specific page which displays all details about the hotel
-- An enquiry page either modal or separate page
-- A contact page (different to enquiry page) which goes to the admin for Holidaze
+To run the app, run the following commands:
 
-### Admin side
-- Create a login section that makes use of JWT tokens
-- List of enquiries and new enquiries appear when user submits the form on the enquiry page
-- List of messages from contact form
-- The admin can create a new establishment
+```bash
+npm run start
+```
 
-### Recommended Process
-Week 1 and 2:  Planning and Design
-Week 3 to 6: Coding
-Week 7: Bug Fixing
+## Contributing
 
-### Level 1 Process
-- Start by planning out the project. 
-- Next begin your research of likely users and browse competitor websites for ideas.
-- Create a style guide
-- Build an Adobe XD prototype (or you can use Sketch or Figma).
-- Start coding. 
-- Once you’ve finished development, start looking for bugs and ensure the site functions well on all viewports. Test the code on different devices. Because your API is public, the code shouldn’t rely on a local API.
-- Refactor your code.
-- Ask another student to look over your code and ask them if they can see how it might be better implemented. This is important to get an outside view on your code. Please attach this feedback to your report.
-- Add the login details for your admin side at the top of this README.md file so that it's easy for the marker to spot.
+Here you can detail any information you want to provide regarding contributing to the project. For big projects you will usually have a separate `CONTRIBUTING.md` and link to it, but for smaller projects you can simply include instructions here. These instructions can simply detail the process you want a person to take, such as to make sure to open a pull request so code can be reviewed.
 
-### Submission
-End of week 7: Report with link to website or a Github link and feedback from code review, and all files in a compressed ZIP. Login details added to the README.md.
+## Contact
 
-### Resources
-Report template included in the repo.
+This is where you can leave your social links for people to contact you, such as a LinkedIn profile or Twitter link e.g.
 
-[Video on deploying Strapi to Heroku](https://vimeo.com/689226140/9b378e06b2)
+[My Twitter page](www.twitter.com)
+
+[My LinkedIn page](www.linkedin.com)
+
+## License
+
+You can link to your license file here if you're using one, or mention what license the codebase falls under. If you're unsure then you can simply delete this section.
+
+## Acknowledgments
+
+This is where you can add any acknowledgements if you'd like, such as to people who have helped you or any code snippets you'd like to mention. You can delete this section if you don't have any acknowledgements to make.
